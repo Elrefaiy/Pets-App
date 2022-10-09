@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets_application/layout/layout.dart';
 import 'package:pets_application/models/onboarding.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -12,65 +13,89 @@ class OnBoardingScreen extends StatelessWidget {
 
     List onBoardingPage = <OnBoarding>[
       OnBoarding(
-        image: 'https://img.freepik.com/free-photo/spaniel-puppy-playing-studio-cute-doggy-pet-is-sitting-isolated-blue-background-cavalier-king-charles-negative-space-insert-your-text-image-concept-movement-animal-rights_155003-33840.jpg',
+        image: 'https://assets.vogue.in/photos/62502b8d90038a40f11ff27c/2:3/w_1600,c_limit/Dog%202.png',
         title: 'Pet Care In Your Neighbourhood',
         body: 'Connect with 5-star pet caregivers near you who are boarding, walking, house sitting or day care.',
+        color: 0xff95cce1,
       ),
       OnBoarding(
-        image: 'https://img.freepik.com/free-photo/lovely-pet-portrait-isolated_23-2149192301.jpg',
+        image: 'https://img.freepik.com/free-photo/red-white-cat-i-white-studio_155003-13189.jpg',
         title: 'Pet Care In Your Neighbourhood',
         body: 'Connect with 5-star pet caregivers near you who are boarding, walking, house sitting or day care.',
+        color: 0xffffffff,
+
       ),
       OnBoarding(
-        image: 'https://img.freepik.com/free-photo/amazing-woman-with-long-wavy-hair-kissing-french-bulldog-portrait-ginger-girl-embracing-her-puppy-pink_197531-11037.jpg',
+        image: 'https://img.freepik.com/free-photo/closeup-shot-sulphur-crested-cockatoo-perched-branch-yellow-background_181624-36192.jpg',
         title: 'Pet Care In Your Neighbourhood',
         body: 'Connect with 5-star pet caregivers near you who are boarding, walking, house sitting or day care.',
+        color: 0xfff4b33f,
+
       ),
     ];
 
-    Widget boarding(OnBoarding model) => Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Image(
-            image: NetworkImage(
-              model.image,
+    Widget boarding(OnBoarding model) => Container(
+      color: Color(model.color),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(model.image),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            fit: BoxFit.cover,
           ),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                model.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(25),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 10,
+                  blurRadius: 10,
+                  color: Color(0x2D616161),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(
-                model.body,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  model.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  model.body,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
 
     return Scaffold(
@@ -109,7 +134,14 @@ class OnBoardingScreen extends StatelessWidget {
               ),
             ),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context)=> const Layout(),
+                  ),
+                );
+              },
               child: const Text(
                 'Get Started',
                 style: TextStyle(
