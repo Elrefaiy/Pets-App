@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pets_application/layout/layout.dart';
 import 'package:pets_application/models/onboarding.dart';
+import 'package:pets_application/modules/register_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -138,7 +138,7 @@ class OnBoardingScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context)=> const Layout(),
+                    builder: (context)=> const RegisterScreen(),
                   ),
                 );
               },

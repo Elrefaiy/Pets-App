@@ -32,6 +32,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  firebase_core: ^1.24.0
   smooth_page_indicator: ^1.0.0+2
 
 
