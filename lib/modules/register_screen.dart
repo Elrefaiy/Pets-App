@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/layout/layout.dart';
@@ -23,16 +24,28 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if( state is UserLoginSuccessState ||
               state is UserLoginSuccessState ){
+            Fluttertoast.showToast(
+              msg: 'you have successfully logged in',
+              fontSize: 16,
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: const Color(0x8b27db24),
+              gravity: ToastGravity.TOP,
+            );
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context)=> const Layout(),
                 ), (route) => false,
+            );}
+          else if( state is UserLoginErrorState ||
+              state is UserSignupErrorState ){
+            Fluttertoast.showToast(
+              msg: state.error,
+              fontSize: 16,
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: const Color(0x8bff0000),
+              gravity: ToastGravity.TOP,
             );
-
-          }else if( state is UserLoginErrorState ||
-              state is UserLoginErrorState ){
-            print(state.error);
           }
         },
         builder: ((context, state) {
@@ -42,7 +55,7 @@ class RegisterScreen extends StatelessWidget {
                 color: Color(0xffd3eafd),
                 image: DecorationImage(
                   image: AssetImage(
-                    'assets/images/loginbg1.png',
+                    'assets/images/login.png',
                   ),
                   fit: BoxFit.cover,
                 ),
