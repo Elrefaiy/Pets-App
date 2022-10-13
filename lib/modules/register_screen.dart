@@ -16,344 +16,396 @@ class RegisterScreen extends StatelessWidget {
     var loginPasswordController = TextEditingController();
     var signupEmailController = TextEditingController();
     var signupPasswordController = TextEditingController();
-    var confirmPasswordController = TextEditingController();
+    var usernameController = TextEditingController();
 
-    return BlocProvider(
-      create: (context) => AppCubit(),
-      child: BlocConsumer<AppCubit, AppStates>(
-        listener: (context, state) {
-          if( state is UserLoginSuccessState ||
-              state is UserLoginSuccessState ){
-            Fluttertoast.showToast(
-              msg: 'you have successfully logged in',
-              fontSize: 16,
-              toastLength: Toast.LENGTH_LONG,
-              backgroundColor: const Color(0x8b27db24),
-              gravity: ToastGravity.TOP,
-            );
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context)=> const Layout(),
-                ), (route) => false,
-            );}
-          else if( state is UserLoginErrorState ||
-              state is UserSignupErrorState ){
-            Fluttertoast.showToast(
-              msg: state.error,
-              fontSize: 16,
-              toastLength: Toast.LENGTH_LONG,
-              backgroundColor: const Color(0x8bff0000),
-              gravity: ToastGravity.TOP,
-            );
-          }
-        },
-        builder: ((context, state) {
-          return Scaffold(
-            body: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffd3eafd),
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/login.png',
-                  ),
-                  fit: BoxFit.cover,
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {
+        if( state is UserLoginSuccessState ||
+            state is UserLoginSuccessState ||
+            state is AnonymousSuccessState){
+          Fluttertoast.showToast(
+            msg: 'you have successfully logged in',
+            fontSize: 16,
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: const Color(0x8b27db24),
+            gravity: ToastGravity.TOP,
+          );
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context)=> const Layout(),
+              ), (route) => false,
+          );}
+        else if( state is UserLoginErrorState ||
+            state is UserSignupErrorState ||
+            state is AnonymousErrorState ){
+          Fluttertoast.showToast(
+            msg: state.error,
+            fontSize: 16,
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: const Color(0x8bff0000),
+            gravity: ToastGravity.TOP,
+          );
+        }
+      },
+      builder: ((context, state) {
+        return Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xffd3eafd),
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/login.png',
                 ),
+                fit: BoxFit.cover,
               ),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 100,),
-                      const Text(
-                        'Hello There!',
-                        style: TextStyle(
-                          fontSize: 35,
-                          color: Colors.blueGrey,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      const Text(
-                        'Login Now and find your friendly pet',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.blueGrey,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      const SizedBox(height: 20,),
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 340,
-                            padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                              color: Color(0xc6ffffff),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x14323232),
-                                  spreadRadius: 10,
-                                  blurRadius: 10,
-                                ),
-                              ],
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20,),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 60,),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        Container(
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Color(0xc6ffffff),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
                             ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.blue,
-                                              width: AppCubit.get(context).registerIndex == 0
-                                                  ? 3
-                                                  : 0,
-                                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x14323232),
+                                spreadRadius: 10,
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: TextButton(
+                            onPressed: (){
+                              AppCubit.get(context).anonymous();
+                            },
+                            child: Text(
+                              'continue as guest',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50,),
+                    Text(
+                      AppCubit.get(context).registerIndex == 0
+                          ? 'Welcome Again!'
+                          : "Let's Get Started!",
+                      style: const TextStyle(
+                        fontSize: 35,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    Text(
+                      AppCubit.get(context).registerIndex == 0
+                          ? 'login now and find your friendly pet.'
+                          : 'signup now and find your friendly pet.',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    const SizedBox(height: 20,),
+                    Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 340,
+                          padding: const EdgeInsets.all(20),
+                          decoration: const BoxDecoration(
+                            color: Color(0xc6ffffff),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x14323232),
+                                spreadRadius: 10,
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: Colors.blue,
+                                            width: AppCubit.get(context).registerIndex == 0
+                                                ? 3
+                                                : 0,
                                           ),
-                                        ),
-                                        child: TextButton(
-                                          child: Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: AppCubit.get(context).registerIndex == 0
-                                                  ? Colors.blue
-                                                  : Colors.grey,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onPressed: () {
-                                            AppCubit.get(context).changeRegisterIndex(0);
-                                          },
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.blue,
-                                              width: AppCubit.get(context).registerIndex == 1
-                                                  ? 3
-                                                  : 0,
-                                            ),
+                                      child: TextButton(
+                                        child: Text(
+                                          'Login',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppCubit.get(context).registerIndex == 0
+                                                ? Colors.blue
+                                                : Colors.grey,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        child: TextButton(
-                                          child: Text(
-                                            'Signup',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: AppCubit.get(context).registerIndex == 1
-                                                  ? Colors.blue
-                                                  : Colors.grey,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onPressed: () {
-                                            AppCubit.get(context).changeRegisterIndex(1);
-                                          },
-                                        ),
+                                        onPressed: () {
+                                          AppCubit.get(context).changeRegisterIndex(0);
+                                        },
                                       ),
                                     ),
-                                  ],
-                                ),
-                                AppCubit.get(context).registerIndex == 0
-                                    ? Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 40,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: Colors.blue,
+                                            width: AppCubit.get(context).registerIndex == 1
+                                                ? 3
+                                                : 0,
                                           ),
-                                          SizedBox(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: loginEmailController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                ),
-                                                prefixIcon: Icon(Icons.email_outlined),
-                                                labelText: 'Email Address',
-                                              ),
-                                            ),
+                                        ),
+                                      ),
+                                      child: TextButton(
+                                        child: Text(
+                                          'Signup',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppCubit.get(context).registerIndex == 1
+                                                ? Colors.blue
+                                                : Colors.grey,
                                           ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          SizedBox(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: loginPasswordController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                    BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                ),
-                                                prefixIcon: Icon(Icons.lock_outline),
-                                                labelText: 'Password',
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Spacer(),
-                                              TextButton(
-                                                onPressed: () {},
-                                                child: const Text(
-                                                  'forget password ?',
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    : Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 40,
-                                          ),
-                                          SizedBox(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: signupEmailController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                    BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                ),
-                                                prefixIcon:
-                                                    Icon(Icons.email_outlined),
-                                                labelText: 'Email Address',
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          SizedBox(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: signupPasswordController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        onPressed: () {
+                                          AppCubit.get(context).changeRegisterIndex(1);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              AppCubit.get(context).registerIndex == 0
+                                  ? Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        SizedBox(
+                                          height: 43,
+                                          child: TextFormField(
+                                            controller: loginEmailController,
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(
                                                   borderRadius: BorderRadius.all(
                                                     Radius.circular(10),
                                                   ),
-                                                ),
-                                                prefixIcon: Icon(Icons.lock_outline),
-                                                labelText: 'Password',
                                               ),
+                                              prefixIcon: Icon(Icons.email_outlined),
+                                              labelText: 'Email Address',
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          SizedBox(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: confirmPasswordController,
-                                              decoration: const InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                ),
-                                                prefixIcon: Icon(Icons.more_horiz),
-                                                labelText: 'Confirm Password',
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          height: 43,
+                                          child: TextFormField(
+                                            obscureText: AppCubit.get(context).isHidden,
+                                            controller: loginPasswordController,
+                                            decoration: InputDecoration(
+                                              border: const OutlineInputBorder(
+                                                borderRadius:
+                                                  BorderRadius.all(
+                                                    Radius.circular(10),
+                                                  ),
                                               ),
+                                              prefixIcon: const Icon(Icons.lock_outline,),
+                                              suffixIcon: IconButton(
+                                                onPressed: (){
+                                                  AppCubit.get(context).toggleHide();
+                                                },
+                                                icon: Icon(
+                                                  AppCubit.get(context).isHidden
+                                                      ? Icons.visibility_off_outlined
+                                                      : Icons.remove_red_eye_outlined,
+                                                ),
+                                              ),
+                                              labelText: 'Password',
                                             ),
                                           ),
-                                        ],
-                                      ),
-                              ],
-                            ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Spacer(),
+                                            TextButton(
+                                              onPressed: () {},
+                                              child: const Text(
+                                                'forget password ?',
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        SizedBox(
+                                          height: 45,
+                                          child: TextFormField(
+                                            controller: usernameController,
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10),
+                                                ),
+                                              ),
+                                              prefixIcon: Icon(Icons.person_outline),
+                                              labelText: 'User Name',
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          height: 45,
+                                          child: TextFormField(
+                                            controller: signupEmailController,
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                  BorderRadius.all(
+                                                    Radius.circular(10),
+                                                  ),
+                                              ),
+                                              prefixIcon:
+                                                  Icon(Icons.email_outlined),
+                                              labelText: 'Email Address',
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        SizedBox(
+                                          height: 45,
+                                          child: TextFormField(
+                                            obscureText: AppCubit.get(context).isHidden,
+                                            controller: signupPasswordController,
+                                            decoration: InputDecoration(
+                                              border: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10),
+                                                ),
+                                              ),
+                                              prefixIcon: const Icon(Icons.lock_outline),
+                                              suffixIcon: IconButton(
+                                                onPressed: (){
+                                                  AppCubit.get(context).toggleHide();
+                                                },
+                                                icon: Icon(
+                                                  AppCubit.get(context).isHidden
+                                                      ? Icons.visibility_off_outlined
+                                                      : Icons.remove_red_eye_outlined,
+                                                ),
+                                              ),
+                                              labelText: 'Password',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ],
                           ),
-                          Container(
-                            width: 70,
-                            height: 70,
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.only(top: 335),
+                        ),
+                        Container(
+                          width: 70,
+                          height: 70,
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(top: 335),
+                          decoration: const BoxDecoration(
+                            color: Color(0xbaffffff),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x17323232),
+                                spreadRadius: 4,
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                          child: Container(
                             decoration: const BoxDecoration(
-                              color: Color(0xbaffffff),
+                              color: Colors.blue,
                               shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x17323232),
-                                  spreadRadius: 4,
-                                  blurRadius: 4,
-                                ),
-                              ],
                             ),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
-                              child: ConditionalBuilder(
-                                condition: state is UserLoginLoadingState || state is UserSignupLoadingState ,
-                                builder: (context) => const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                fallback: (context) => IconButton(
+                            child: ConditionalBuilder(
+                              condition: state is UserLoginLoadingState || state is UserSignupLoadingState ,
+                              builder: (context) => const Center(
+                                child: CircularProgressIndicator(
                                   color: Colors.white,
-                                  onPressed: () {
-                                    if (AppCubit.get(context).registerIndex == 1){
-                                      AppCubit.get(context).createUser(
-                                        email: signupEmailController.text,
-                                        password: signupPasswordController.text,
-                                      );
-                                    }else{
-                                      AppCubit.get(context).userLogin(
-                                        email: loginEmailController.text,
-                                        password: loginPasswordController.text,
-                                      );
-                                    }
-                                  },
-                                  icon: const Icon(Icons.arrow_forward),
                                 ),
+                              ),
+                              fallback: (context) => IconButton(
+                                color: Colors.white,
+                                onPressed: () {
+                                  if (AppCubit.get(context).registerIndex == 1){
+                                    AppCubit.get(context).createUser(
+                                      email: signupEmailController.text,
+                                      password: signupPasswordController.text,
+                                    );
+                                  }else{
+                                    AppCubit.get(context).userLogin(
+                                      email: loginEmailController.text,
+                                      password: loginPasswordController.text,
+                                    );
+                                  }
+                                },
+                                icon: const Icon(Icons.arrow_forward),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 200,),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 150,),
+                  ],
                 ),
               ),
             ),
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }
-
-// https://i.pinimg.com/564x/35/08/15/3508153d63b595bdac4b7d1169217996.jpg
-// https://i.pinimg.com/564x/46/06/ed/4606ed955169e30c0a98fba712c282c1.jpg
-// https://i.pinimg.com/564x/0e/84/e5/0e84e5d48847d45666254ca4d86f6301.jpg
-// https://i.pinimg.com/originals/d9/b3/7f/d9b37f2a81e9b516a2d0d6c1ceab1a20.png
-//https://64.media.tumblr.com/07c1c2e87fb8ca247103dd92bc14a74c/tumblr_n68s9pNcQS1rrccpdo1_640.jpg
 

@@ -39,6 +39,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   conditional_builder_null_safety: ^0.0.6
   fluttertoast: ^8.0.9
+  font_awesome_flutter: ^10.2.1
 
   # dart pub outdated --mode=null-safety        check on packages
 

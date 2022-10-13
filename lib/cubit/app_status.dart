@@ -22,3 +22,16 @@ class UserSignupErrorState extends AppStates {
   UserSignupErrorState(this.error);
 }
 
+class AnonymousLoadingState extends AppStates {}
+class AnonymousSuccessState extends AppStates {}
+class AnonymousErrorState extends AppStates {
+  @override
+  final String error;
+  AnonymousErrorState(this.error);
+}
+
+class ChangePasswordVisibilityState extends AppStates {}
+
+class ChangeCurrentIndexState extends AppStates {}
+
+
