@@ -13,7 +13,26 @@ class Layout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            titleSpacing: 20,
+            title: const Text(
+              'Pets Store',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: (){},
+                icon: const FaIcon(
+                FontAwesomeIcons.bell,
+                color: Colors.black,
+              ),
+              ),
+              const CircleAvatar(),
+              const SizedBox(width: 20,),
+            ],
+          ),
           body: SafeArea(
             child: AppCubit.get(context).layoutScreens[AppCubit.get(context).currentIndex],
           ),
