@@ -41,7 +41,7 @@ dependencies:
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.2.1
   flutter_polyline_points: ^1.0.0
-  google_maps_flutter: ^2.2.1
+#  google_maps_flutter: ^2.2.1
 
 
   # dart pub outdated --mode=null-safety        check on packages
