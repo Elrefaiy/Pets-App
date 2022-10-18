@@ -74,4 +74,10 @@ class AppCubit extends Cubit<AppStates>{
     emit(ChangeCurrentIndexState());
   }
 
+  int catIndex = 0 ;
+  void changeCatIndex(int index){
+    catIndex = index;
+    emit(ChangeCatIndexState());
+  }
+
 }

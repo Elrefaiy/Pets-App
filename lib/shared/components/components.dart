@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 Widget petItem() => Container(
-  width: 160,
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
     border: Border.all(color: Colors.grey.withOpacity(.4)),
@@ -27,13 +26,23 @@ Widget petItem() => Container(
               ),
             ),
           ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.red.withOpacity(.5),
+          Container(
+            width: 33,
+            height: 33,
+            margin: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
             ),
+            child: IconButton(
+              onPressed: (){},
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.grey[350],
+                size: 18,
+              ),
 
+            ),
           ),
         ],
       ),

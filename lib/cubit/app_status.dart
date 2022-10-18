@@ -34,4 +34,7 @@ class ChangePasswordVisibilityState extends AppStates {}
 
 class ChangeCurrentIndexState extends AppStates {}
 
+class ChangeCatIndexState extends AppStates {}
+
+
 
