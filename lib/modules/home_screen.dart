@@ -244,7 +244,7 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
-                  6, (index) => petItem(),
+                  6, (index) => petItem(context),
                 ),
               ),
             ],
