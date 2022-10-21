@@ -29,10 +29,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
-            // systemOverlayStyle: SystemUiOverlayStyle(
-            //   statusBarColor: Colors.white,
-            //   statusBarIconBrightness: Brightness.dark,
-            // ),
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.white,
+              statusBarIconBrightness: Brightness.dark,
+            ),
             color: Colors.white,
             elevation: 0,
           ),
