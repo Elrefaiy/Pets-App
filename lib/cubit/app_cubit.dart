@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets_application/cubit/app_status.dart';
-import 'package:pets_application/modules/facourites_screen.dart';
+import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
 import 'package:pets_application/modules/profile_screen.dart';
-import 'package:pets_application/modules/search_screen.dart';
+import 'package:pets_application/modules/food_screen.dart';
 
 class AppCubit extends Cubit<AppStates>{
   AppCubit() : super(AppInitialState());
@@ -63,10 +63,16 @@ class AppCubit extends Cubit<AppStates>{
   }
 
   int currentIndex = 0 ;
+  List<String> title = [
+    'Pets Store',
+    'Favourites',
+    "Pet's Food",
+    'Profile',
+  ];
   List<Widget> layoutScreens = [
     const HomeScreen(),
     const FavouritesScreen(),
-    const SearchScreen(),
+    const FoodScreen(),
     const ProfileScreen(),
   ];
   void changeCurrentIndex(int index){

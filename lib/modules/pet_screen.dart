@@ -271,7 +271,7 @@ class PetScreen extends StatelessWidget {
                         ),
                         child: Text(
                           behaviour[index],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                           ),
                         ),

@@ -55,9 +55,11 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 10,),
               // intro
               Stack(
                 alignment: AlignmentDirectional.bottomCenter,
@@ -247,6 +249,7 @@ class HomeScreen extends StatelessWidget {
                   6, (index) => petItem(context),
                 ),
               ),
+              const SizedBox(height: 10,),
             ],
           ),
         );

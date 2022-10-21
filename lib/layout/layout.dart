@@ -15,9 +15,9 @@ class Layout extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             titleSpacing: 20,
-            title: const Text(
-              'Pets Store',
-              style: TextStyle(
+            title: Text(
+              AppCubit.get(context).title[AppCubit.get(context).currentIndex],
+              style: const TextStyle(
                 color: Colors.black,
               ),
             ),
@@ -129,7 +129,7 @@ class Layout extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           FaIcon(
-                            FontAwesomeIcons.magnifyingGlass,
+                            FontAwesomeIcons.bone,
                             color: AppCubit.get(context).currentIndex == 2
                                 ? Colors.blue
                                 : Colors.grey[400],
@@ -139,7 +139,7 @@ class Layout extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            'Search',
+                            'Foods',
                             style: AppCubit.get(context).currentIndex == 2 ? const TextStyle(
                               color: Colors.blue,
                               fontSize: 12,
