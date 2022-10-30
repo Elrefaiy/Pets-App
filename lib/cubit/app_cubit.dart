@@ -6,6 +6,7 @@ import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
 import 'package:pets_application/modules/profile_screen.dart';
 import 'package:pets_application/modules/food_screen.dart';
+import 'package:pets_application/shared/network/local/cache_helper.dart';
 
 class AppCubit extends Cubit<AppStates>{
   AppCubit() : super(AppInitialState());
@@ -26,6 +27,9 @@ class AppCubit extends Cubit<AppStates>{
       email: email,
       password: password,
     ).then((value){
+      CacheHelper.putData(
+        key: 'token',
+        value: value.user!.uid.toString(),);
       emit(UserSignupSuccessState());
     }).catchError((error){
       emit(UserSignupErrorState(error.toString()));
@@ -41,6 +45,9 @@ class AppCubit extends Cubit<AppStates>{
       email: email,
       password: password,
     ).then((value){
+      CacheHelper.putData(
+        key: 'token',
+        value: value.user!.uid.toString(),);
       emit(UserLoginSuccessState());
     }).catchError((error){
       emit(UserLoginErrorState(error.toString()));
@@ -50,6 +57,9 @@ class AppCubit extends Cubit<AppStates>{
   void anonymous(){
     emit(AnonymousLoadingState());
     FirebaseAuth.instance.signInAnonymously().then((value){
+      CacheHelper.putData(
+        key: 'token',
+        value: value.user!.uid.toString(),);
       emit(AnonymousSuccessState());
     }).catchError((error){
       emit(AnonymousErrorState(error));

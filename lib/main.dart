@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/modules/onboarding_screen.dart';
+import 'package:pets_application/shared/network/local/cache_helper.dart';
 import 'cubit/bloc_observer.dart';
 import 'firebase_options.dart';
 
@@ -13,6 +14,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await CacheHelper.init();
   runApp(const MyApp());
 }
 

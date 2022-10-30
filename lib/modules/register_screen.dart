@@ -35,7 +35,8 @@ class RegisterScreen extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context)=> const Layout(),
               ), (route) => false,
-          );}
+          );
+        }
         else if( state is UserLoginErrorState ||
             state is UserSignupErrorState ||
             state is AnonymousErrorState ){
