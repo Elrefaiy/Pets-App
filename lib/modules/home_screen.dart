@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/categories.dart';
@@ -68,17 +69,24 @@ class HomeScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 160,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
+                    child: const GoogleMap(
+                      zoomGesturesEnabled: false,
+                      scrollGesturesEnabled: false,
+                      rotateGesturesEnabled: false,
+                      zoomControlsEnabled: false,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(30.04600767967174, 31.234485916793346),
+                        zoom: 17.5,
+                      ),
+                      mapType: MapType.normal,
                     ),
                   ),
                   Container(
                     width: double.infinity,
                     height: 70,
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 10,
+                      horizontal: 27,
+                      vertical: 8,
                     ),
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(

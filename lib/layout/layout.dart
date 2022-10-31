@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
+import 'package:pets_application/modules/map_screen.dart';
 
 class Layout extends StatelessWidget {
   const Layout({Key? key}) : super(key: key);
@@ -194,7 +195,14 @@ class Layout extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context)=> const MapScreen(),
+                ),
+              );
+            },
             child: const Icon(
               Icons.location_pin,
             ),

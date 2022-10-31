@@ -11,6 +11,9 @@ ThemeData lightTheme() => ThemeData(
       statusBarColor: Colors.white.withOpacity(.0),
       statusBarIconBrightness: Brightness.dark,
     ),
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+    ),
     color: Colors.white,
     elevation: 0,
   ),

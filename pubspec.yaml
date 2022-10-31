@@ -40,8 +40,9 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.2.1
+  dio: ^4.0.6
   flutter_polyline_points: ^1.0.0
-#  google_maps_flutter: ^2.2.1
+  google_maps_flutter: ^2.2.1
   shared_preferences: ^2.0.15
 
   # dart pub outdated --mode=null-safety        check on packages
