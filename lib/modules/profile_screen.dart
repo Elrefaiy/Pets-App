@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/modules/register_screen.dart';
-import 'package:pets_application/shared/network/local/cache_helper.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
       children: [
         TextButton(
           onPressed: (){
-            CacheHelper.removeData(key: 'token');
+            AppCubit.get(context).signOut();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: ((context) => const RegisterScreen())), (route) => false);
           },
           child: const Text(

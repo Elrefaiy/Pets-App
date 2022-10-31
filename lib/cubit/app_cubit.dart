@@ -66,6 +66,16 @@ class AppCubit extends Cubit<AppStates>{
     });
   }
 
+  void signOut(){
+    emit(UserSignOutLoadingState());
+    CacheHelper.removeData(key: 'token');
+    FirebaseAuth.instance.signOut().then((value){
+      emit(UserSignOutSuccessState());
+    }).catchError((error){
+      emit(UserSignOutErrorState(error));
+    });
+  }
+
   bool isHidden = true;
   void toggleHide(){
     isHidden = !isHidden;

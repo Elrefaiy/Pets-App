@@ -30,6 +30,14 @@ class AnonymousErrorState extends AppStates {
   AnonymousErrorState(this.error);
 }
 
+class UserSignOutLoadingState extends AppStates {}
+class UserSignOutSuccessState extends AppStates {}
+class UserSignOutErrorState extends AppStates {
+  @override
+  final String error;
+  UserSignOutErrorState(this.error);
+}
+
 class ChangePasswordVisibilityState extends AppStates {}
 
 class ChangeCurrentIndexState extends AppStates {}
