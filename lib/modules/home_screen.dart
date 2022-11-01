@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/categories.dart';
@@ -61,89 +60,6 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10,),
-              // intro
-              Stack(
-                alignment: AlignmentDirectional.bottomCenter,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 160,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: const GoogleMap(
-                      zoomGesturesEnabled: false,
-                      scrollGesturesEnabled: false,
-                      rotateGesturesEnabled: false,
-                      zoomControlsEnabled: false,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(30.04600767967174, 31.234485916793346),
-                        zoom: 17.5,
-                      ),
-                      mapType: MapType.normal,
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 70,
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 27,
-                      vertical: 8,
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Your Location',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Quesm Menuf, Elmenofia, Cairo',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                spreadRadius: 1.5,
-                                blurRadius: 5,
-                                color: Colors.grey.withOpacity(.2),
-                              ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.my_location_sharp,
-                            color: Colors.yellow[700],
-                            size: 26,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               // search
               Container(
                 margin: const EdgeInsets.only(left: 20),

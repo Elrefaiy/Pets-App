@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/modules/pet_screen.dart';
 
 Widget petItem(context) => Container(
@@ -104,4 +106,113 @@ Widget petItem(context) => Container(
       ],
     ),
   ),
+);
+
+Marker markerItem({
+    required context,
+    required String id,
+    required double lat,
+    required double lng,
+    required double color,
+})=> Marker(
+    markerId: MarkerId(id),
+    infoWindow: const InfoWindow(
+      title: 'Lina Amane',
+      snippet: '1,2 km away from you',
+    ),
+    icon: BitmapDescriptor.defaultMarkerWithHue(color),
+    alpha: .8,
+    position: LatLng(lat, lng),
+    onTap: (){
+      showDialog(
+        context: context,
+        builder: ((context) => Column(
+          children: [
+            const Spacer(),
+            SimpleDialog(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      ' Lina Amane ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.verified,
+                      color: Colors.lightGreen,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: (){},
+                      icon: const FaIcon(
+                        FontAwesomeIcons.heart,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      ' 1,2 km away from you',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10,),
+                Row(
+                  children: [
+                    const SizedBox(width: 10,),
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow[600],
+                    ),
+                    const Text(
+                      ' 4,9',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(width: 20,),
+                    const Text(
+                      '20 reviews',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      '\$ 20',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 15,),
+                  ],
+                ),
+                const SizedBox(height: 15,),
+              ],
+            ),
+            const SizedBox(height: 170,),
+          ],
+        )),
+      );
+    }
 );
