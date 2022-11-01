@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pets_application/cubit/app_cubit.dart';
+import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/slider.dart';
 import 'package:pets_application/shared/components/components.dart';
 
@@ -93,40 +96,46 @@ class FoodScreen extends StatelessWidget {
       ),
     );
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10,),
-          CarouselSlider.builder(
-            itemCount: sliderItems.length,
-            itemBuilder: (context, index, realIndex) => carouselItem(
-              sliderItems[index].title,
-              sliderItems[index].content,
-              sliderItems[index].image,
-            ),
-            options: CarouselOptions(
-              autoPlay: true,
-              enlargeCenterPage: true,
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state){},
+      builder: (context, state) {
+       return SingleChildScrollView(
+         physics: const BouncingScrollPhysics(),
+         child: Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: [
+             const SizedBox(height: 10,),
+             CarouselSlider.builder(
+               itemCount: sliderItems.length,
+               itemBuilder: (context, index, realIndex) => carouselItem(
+                 sliderItems[index].title,
+                 sliderItems[index].content,
+                 sliderItems[index].image,
+               ),
+               options: CarouselOptions(
+                 autoPlay: true,
+                 enlargeCenterPage: true,
 
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text('Newest Food Products'),
-          ),
-          const SizedBox(height: 10,),
-          ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20,),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => foodItem(),
-            separatorBuilder: (context, index) => const SizedBox(height: 10,),
-            itemCount: 5,
-          ),
+               ),
+             ),
+             const Padding(
+               padding: EdgeInsets.symmetric(horizontal: 20),
+               child: Text('Newest Food Products'),
+             ),
+             const SizedBox(height: 10,),
+             ListView.separated(
+               padding: const EdgeInsets.symmetric(horizontal: 20,),
+               shrinkWrap: true,
+               physics: const NeverScrollableScrollPhysics(),
+               itemBuilder: (context, index) => foodItem(),
+               separatorBuilder: (context, index) => const SizedBox(height: 10,),
+               itemCount: 5,
+             ),
 
-        ],
-      ),
+           ],
+         ),
+       );
+      },
     );
   }
 }
