@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -215,4 +216,84 @@ Marker markerItem({
         )),
       );
     }
+);
+
+Widget foodItem() => Container(
+  width: double.infinity,
+  height: 140,
+  decoration: BoxDecoration(
+    color: Colors.grey.withOpacity(.06),
+    border: Border.all(
+      color: Colors.grey,
+    ),
+    borderRadius: BorderRadius.circular(10),
+  ),
+  child: Row(
+    children: [
+      Container(
+        height: 130,
+        width: 160,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+          ),
+          image: DecorationImage(
+            image: NetworkImage(
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqCKkXaMVz3it5R-S6HVQ6jvnk_IRxedpTyPtih9tqgzISmsF-KkJrQV07N2JEPz2YCTs&usqp=CAU',
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      const SizedBox(width: 15,),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10,),
+            const Text(
+              'BLISSFUL BELLY',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+              maxLines: 1,
+            ),
+            const SizedBox(height: 5,),
+            const Text(
+              'healthy food for both dogs and cats, fully natural materials',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const Spacer(),
+            Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow[700],
+                  size: 20,
+                ),
+                const Text('  4,9'),
+                const Spacer(),
+                const Text(
+                  '\$ 22  ',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+          ],
+        ),
+      ),
+      const SizedBox(width: 10,),
+    ],
+  ),
+
 );
