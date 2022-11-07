@@ -14,7 +14,8 @@ class Layout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
+          appBar: AppCubit.get(context).currentIndex != 3
+              ? AppBar(
             titleSpacing: 20,
             title: Text(
               AppCubit.get(context).title[AppCubit.get(context).currentIndex],
@@ -33,7 +34,8 @@ class Layout extends StatelessWidget {
               const CircleAvatar(),
               const SizedBox(width: 20,),
             ],
-          ),
+          )
+              : null,
           body: SafeArea(
             child: AppCubit.get(context).layoutScreens[AppCubit.get(context).currentIndex],
           ),
