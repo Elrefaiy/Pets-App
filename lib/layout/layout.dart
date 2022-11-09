@@ -16,28 +16,38 @@ class Layout extends StatelessWidget {
         return Scaffold(
           appBar: AppCubit.get(context).currentIndex != 3
               ? AppBar(
-            titleSpacing: 20,
-            title: Text(
-              AppCubit.get(context).title[AppCubit.get(context).currentIndex],
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: (){},
-                icon: const FaIcon(
-                FontAwesomeIcons.bell,
-                color: Colors.black,
-              ),
-              ),
-              const CircleAvatar(),
-              const SizedBox(width: 20,),
-            ],
-          )
+                  titleSpacing: 20,
+                  title: Text(
+                    AppCubit.get(context)
+                        .title[AppCubit.get(context).currentIndex],
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const FaIcon(
+                        FontAwesomeIcons.bell,
+                        size: 22,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        'https://www.bentbusinessmarketing.com/wp-content/uploads/2013/02/35844588650_3ebd4096b1_b-1024x683.jpg',
+                      ),
+                      radius: 18,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                )
               : null,
           body: SafeArea(
-            child: AppCubit.get(context).layoutScreens[AppCubit.get(context).currentIndex],
+            child: AppCubit.get(context)
+                .layoutScreens[AppCubit.get(context).currentIndex],
           ),
           bottomNavigationBar: BottomAppBar(
             elevation: 15,
@@ -53,7 +63,7 @@ class Layout extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         AppCubit.get(context).changeCurrentIndex(0);
                       },
                       child: Column(
@@ -71,14 +81,16 @@ class Layout extends StatelessWidget {
                           ),
                           Text(
                             'Home',
-                            style: AppCubit.get(context).currentIndex == 0 ? const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            ) : const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                            style: AppCubit.get(context).currentIndex == 0
+                                ? const TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
+                                : const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -89,7 +101,7 @@ class Layout extends StatelessWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         AppCubit.get(context).changeCurrentIndex(1);
                       },
                       child: Column(
@@ -107,14 +119,16 @@ class Layout extends StatelessWidget {
                           ),
                           Text(
                             'Saved',
-                            style: AppCubit.get(context).currentIndex == 1 ? const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            ) : const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                            style: AppCubit.get(context).currentIndex == 1
+                                ? const TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
+                                : const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -125,7 +139,7 @@ class Layout extends StatelessWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         AppCubit.get(context).changeCurrentIndex(2);
                       },
                       child: Column(
@@ -143,14 +157,16 @@ class Layout extends StatelessWidget {
                           ),
                           Text(
                             'Foods',
-                            style: AppCubit.get(context).currentIndex == 2 ? const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            ) : const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                            style: AppCubit.get(context).currentIndex == 2
+                                ? const TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
+                                : const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -161,7 +177,7 @@ class Layout extends StatelessWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         AppCubit.get(context).changeCurrentIndex(3);
                       },
                       child: Column(
@@ -179,14 +195,16 @@ class Layout extends StatelessWidget {
                           ),
                           Text(
                             'Profile',
-                            style: AppCubit.get(context).currentIndex == 3 ? const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            ) : const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                            style: AppCubit.get(context).currentIndex == 3
+                                ? const TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
+                                : const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -201,7 +219,7 @@ class Layout extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context)=> const MapScreen(),
+                  builder: (context) => const MapScreen(),
                 ),
               );
             },

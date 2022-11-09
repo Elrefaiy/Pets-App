@@ -55,6 +55,11 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+
+        List pets = AppCubit.get(context).pets;
+        List newestPets = [];
+        List dogs = [];
+
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -257,7 +262,14 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
-                  6, (index) => petItem(context),
+                    pets.length, (index) => petItem(
+                    context: context,
+                    id: pets[index]['id'],
+                    image: pets[index]['image'],
+                    name: pets[index]['name'],
+                    petFor: pets[index]['petFor'],
+                    address: pets[index]['address'],
+                  ),
                 ),
               ),
               const SizedBox(height: 10,),

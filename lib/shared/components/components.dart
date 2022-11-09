@@ -1,10 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/modules/pet_screen.dart';
 
-Widget petItem(context) => Container(
+Widget petItem({
+  required context,
+  required id,
+  required image,
+  required petFor,
+  required name,
+  required address,
+}) => Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
     border: Border.all(color: Colors.grey.withOpacity(.4)),
@@ -14,7 +20,7 @@ Widget petItem(context) => Container(
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: ((context) => const PetScreen()),
+          builder: ((context) => PetScreen(id: int.parse(id))),
         ),
       );
     },
@@ -26,14 +32,14 @@ Widget petItem(context) => Container(
           children: [
             Container(
               height: 120,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    'https://img.freepik.com/free-photo/kitty-with-monochrome-wall-her_23-2148955134.jpg',
+                    image,
                   ),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -66,20 +72,20 @@ Widget petItem(context) => Container(
             color: Colors.blue.withOpacity(.2),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Text(
-            'Adoption',
-            style: TextStyle(
+          child: Text(
+              petFor,
+            style: const TextStyle(
                 fontSize: 12,
                 color: Colors.blue,
                 fontWeight: FontWeight.bold
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10,),
           child: Text(
-            'Scottish Fold',
-            style: TextStyle(
+            name,
+            style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold
             ),
@@ -88,15 +94,15 @@ Widget petItem(context) => Container(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5,),
           child: Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.location_on_outlined,
                 color: Colors.grey,
                 size: 18,
               ),
               Text(
-                'California ( 2.5 Km )',
-                  style: TextStyle(
+                address,
+                style: const TextStyle(
                   fontSize: 12,
                   color: Colors.grey,
                 ),

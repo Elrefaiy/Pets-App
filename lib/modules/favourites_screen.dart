@@ -14,7 +14,7 @@ class FavouritesScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: true,
+          condition: false,
           builder: (context)=> GridView.count(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
             mainAxisSpacing: 10,
@@ -24,7 +24,7 @@ class FavouritesScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             children: List.generate(
-              6, (index) => petItem(context),
+              6, (index) => Container(),
             ),
           ),
           fallback: (context)=> const Center(

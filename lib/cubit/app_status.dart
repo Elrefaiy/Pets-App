@@ -44,5 +44,12 @@ class ChangeCurrentIndexState extends AppStates {}
 
 class ChangeCatIndexState extends AppStates {}
 
+class GetAllPetsDataLoadingState extends AppStates {}
+class GetAllPetsDataSuccessState extends AppStates {}
+class GetAllPetsDataErrorState extends AppStates {
+  @override
+  final String error;
+  GetAllPetsDataErrorState(this.error);
+}
 
 

@@ -6,6 +6,7 @@ import 'package:pets_application/layout/layout.dart';
 import 'package:pets_application/modules/onboarding_screen.dart';
 import 'package:pets_application/shared/constants/conistants.dart';
 import 'package:pets_application/shared/network/local/cache_helper.dart';
+import 'package:pets_application/shared/network/remote/dio_helper.dart';
 import 'cubit/bloc_observer.dart';
 import 'firebase_options.dart';
 
@@ -16,6 +17,7 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await CacheHelper.init();
+  DioHelper.init();
 
   Widget widget ;
   token = CacheHelper.getData(key: 'token') ?? '';
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: ((context) => AppCubit()),
+      create: ((context) => AppCubit()..getPetsData()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme(),

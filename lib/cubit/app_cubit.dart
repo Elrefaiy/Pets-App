@@ -6,7 +6,9 @@ import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
 import 'package:pets_application/modules/profile_screen.dart';
 import 'package:pets_application/modules/food_screen.dart';
+import 'package:pets_application/shared/network/end_points.dart';
 import 'package:pets_application/shared/network/local/cache_helper.dart';
+import 'package:pets_application/shared/network/remote/dio_helper.dart';
 
 class AppCubit extends Cubit<AppStates>{
   AppCubit() : super(AppInitialState());
@@ -104,6 +106,22 @@ class AppCubit extends Cubit<AppStates>{
   void changeCatIndex(int index){
     catIndex = index;
     emit(ChangeCatIndexState());
+  }
+
+
+  List<dynamic> pets= [];
+  // late PetModel petModel;
+
+  void getPetsData(){
+    emit(GetAllPetsDataLoadingState());
+    DioHelper.getData(
+      url: allPets,
+    ).then((value){
+      pets = value.data;
+      emit(GetAllPetsDataSuccessState());
+    }).catchError((error){
+      emit(GetAllPetsDataErrorState(error));
+    });
   }
 
 }

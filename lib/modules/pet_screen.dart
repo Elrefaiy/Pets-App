@@ -5,7 +5,9 @@ import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 
 class PetScreen extends StatelessWidget {
-  const PetScreen({Key? key}) : super(key: key);
+
+  int id;
+  PetScreen({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,10 @@ class PetScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state){},
       builder: (context, state) {
+
+        Map<String, dynamic> petItem = AppCubit.get(context).pets[id];
+        print(petItem['id']);
+
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -35,10 +41,10 @@ class PetScreen extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               height: 450,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    'https://img.freepik.com/free-photo/kitty-with-monochrome-wall-her_23-2148955134.jpg',
+                                    petItem['image'],
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -100,16 +106,16 @@ class PetScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Maine Coon Cat',
-                                style: TextStyle(
+                              Text(
+                                petItem['name'],
+                                style: const TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 5,),
                               Text(
-                                'French Bulldog, 1y 4m',
+                                petItem['age'],
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.grey[600],
@@ -163,16 +169,16 @@ class PetScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
-                              '5.5 kg',
-                              style: TextStyle(
+                              petItem['weight'],
+                              style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5,),
-                            Text('Weight',),
+                            const SizedBox(height: 5,),
+                            const Text('Weight',),
                           ],
                         ),
                       ),
@@ -187,16 +193,16 @@ class PetScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
-                              '42 cm',
-                              style: TextStyle(
+                              petItem['height'],
+                              style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5,),
-                            Text('Height',),
+                            const SizedBox(height: 5,),
+                            const Text('Height',),
                           ],
                         ),
                       ),
@@ -211,16 +217,16 @@ class PetScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
-                              'Light Brown',
-                              style: TextStyle(
+                              petItem['color'],
+                              style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5,),
-                            Text('Color',),
+                            const SizedBox(height: 5,),
+                            const Text('Color',),
                           ],
                         ),
                       ),
@@ -229,11 +235,11 @@ class PetScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 15,),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20,),
                   child: Text(
-                    'my cat is incredibly and unconditionally loyal to me, he loves me as much as i love him or something more.',
-                    style: TextStyle(
+                    petItem['about'],
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                     ),

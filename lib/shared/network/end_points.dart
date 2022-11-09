@@ -1,0 +1,1 @@
+String allPets = 'all-pets';
