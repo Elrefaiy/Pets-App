@@ -52,4 +52,12 @@ class GetAllPetsDataErrorState extends AppStates {
   GetAllPetsDataErrorState(this.error);
 }
 
+class GetFoodsDataLoadingState extends AppStates {}
+class GetFoodsDataSuccessState extends AppStates {}
+class GetFoodsDataErrorState extends AppStates {
+  @override
+  final String error;
+  GetFoodsDataErrorState(this.error);
+}
+
 

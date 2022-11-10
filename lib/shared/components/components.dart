@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/modules/pet_screen.dart';
 
 Widget petItem({
@@ -10,6 +11,7 @@ Widget petItem({
   required petFor,
   required name,
   required address,
+  required favourite,
 }) => Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
@@ -17,10 +19,11 @@ Widget petItem({
   ),
   child: GestureDetector(
     onTap: (){
+      AppCubit.get(context).getPetItem(id);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: ((context) => PetScreen(id: int.parse(id))),
+          builder: ((context) => PetScreen(myPet: AppCubit.get(context).myPet)),
         ),
       );
     },
@@ -57,7 +60,7 @@ Widget petItem({
                 onPressed: (){},
                 icon: Icon(
                   Icons.favorite,
-                  color: Colors.grey[350],
+                  color: favourite ? Colors.redAccent : Colors.grey[350],
                   size: 18,
                 ),
 
@@ -224,7 +227,13 @@ Marker markerItem({
     }
 );
 
-Widget foodItem() => Container(
+Widget foodItem({
+  required image,
+  required name,
+  required about,
+  required reviews,
+  required price,
+}) => Container(
   width: double.infinity,
   height: 140,
   decoration: BoxDecoration(
@@ -239,14 +248,14 @@ Widget foodItem() => Container(
       Container(
         height: 130,
         width: 160,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             bottomLeft: Radius.circular(10),
           ),
           image: DecorationImage(
             image: NetworkImage(
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqCKkXaMVz3it5R-S6HVQ6jvnk_IRxedpTyPtih9tqgzISmsF-KkJrQV07N2JEPz2YCTs&usqp=CAU',
+              image,
             ),
             fit: BoxFit.cover,
           ),
@@ -258,18 +267,18 @@ Widget foodItem() => Container(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10,),
-            const Text(
-              'BLISSFUL BELLY',
-              style: TextStyle(
+            Text(
+              name,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
               maxLines: 1,
             ),
             const SizedBox(height: 5,),
-            const Text(
-              'healthy food for both dogs and cats, fully natural materials',
-              style: TextStyle(
+            Text(
+              about,
+              style: const TextStyle(
                 fontSize: 16,
               ),
               maxLines: 3,
@@ -283,11 +292,11 @@ Widget foodItem() => Container(
                   color: Colors.yellow[700],
                   size: 20,
                 ),
-                const Text('  4,9'),
+                Text('  $reviews'),
                 const Spacer(),
-                const Text(
-                  '\$ 22  ',
-                  style: TextStyle(
+                Text(
+                  price,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                   ),

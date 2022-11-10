@@ -110,8 +110,6 @@ class AppCubit extends Cubit<AppStates>{
 
 
   List<dynamic> pets= [];
-  // late PetModel petModel;
-
   void getPetsData(){
     emit(GetAllPetsDataLoadingState());
     DioHelper.getData(
@@ -121,6 +119,25 @@ class AppCubit extends Cubit<AppStates>{
       emit(GetAllPetsDataSuccessState());
     }).catchError((error){
       emit(GetAllPetsDataErrorState(error));
+    });
+  }
+
+  Map<String, dynamic> myPet = {};
+  void getPetItem(String id){
+    myPet = pets[int.parse(id)];
+  }
+
+  List<dynamic> allFoods= [];
+  void getFoodsData(){
+    emit(GetFoodsDataLoadingState());
+    DioHelper.getData(
+      url: foods,
+    ).then((value){
+      allFoods = value.data;
+      print(allFoods);
+      emit(GetFoodsDataSuccessState());
+    }).catchError((error){
+      emit(GetFoodsDataErrorState(error));
     });
   }
 

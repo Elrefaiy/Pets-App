@@ -269,6 +269,7 @@ class HomeScreen extends StatelessWidget {
                     name: pets[index]['name'],
                     petFor: pets[index]['petFor'],
                     address: pets[index]['address'],
+                    favourite: pets[index]['favourite'],
                   ),
                 ),
               ),

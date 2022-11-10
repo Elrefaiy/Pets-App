@@ -99,6 +99,9 @@ class FoodScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state){},
       builder: (context, state) {
+
+        List allFoods = AppCubit.get(context).allFoods;
+
        return SingleChildScrollView(
          physics: const BouncingScrollPhysics(),
          child: Column(
@@ -127,9 +130,15 @@ class FoodScreen extends StatelessWidget {
                padding: const EdgeInsets.symmetric(horizontal: 20,),
                shrinkWrap: true,
                physics: const NeverScrollableScrollPhysics(),
-               itemBuilder: (context, index) => foodItem(),
+               itemBuilder: (context, index) => foodItem(
+                 image: allFoods[index]['image'],
+                 name: allFoods[index]['name'],
+                 about: allFoods[index]['about'],
+                 reviews: allFoods[index]['reviews'],
+                 price: allFoods[index]['price'],
+               ),
                separatorBuilder: (context, index) => const SizedBox(height: 10,),
-               itemCount: 5,
+               itemCount: allFoods.length,
              ),
 
            ],

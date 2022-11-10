@@ -60,7 +60,7 @@ class _MapScreenState extends State<MapScreen> {
             id: '1',
             lat: 30.062669137820645,
             lng: 31.24409861862659,
-            color: 200,
+            color: 300,
           ),
           markerItem(
             context: context,

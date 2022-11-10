@@ -6,25 +6,15 @@ import 'package:pets_application/cubit/app_status.dart';
 
 class PetScreen extends StatelessWidget {
 
-  int id;
-  PetScreen({required this.id, Key? key}) : super(key: key);
+  final Map<String, dynamic> myPet;
+  const PetScreen({required this.myPet, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    List<String> behaviour = [
-      'Friendly with other cats',
-      'Leash trained cat',
-      'Active cat',
-      'Tries to eat things',
-    ];
-
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state){},
       builder: (context, state) {
-
-        Map<String, dynamic> petItem = AppCubit.get(context).pets[id];
-        print(petItem['id']);
 
         return Scaffold(
           body: SingleChildScrollView(
@@ -44,7 +34,7 @@ class PetScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    petItem['image'],
+                                    myPet['image'],
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -85,13 +75,13 @@ class PetScreen extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 30,
+                        horizontal: 15,
+                        vertical: 35,
                       ),
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(.7),
-                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white.withOpacity(.75),
+                        borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(.2),
@@ -107,7 +97,7 @@ class PetScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                petItem['name'],
+                                myPet['name'],
                                 style: const TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
@@ -115,9 +105,9 @@ class PetScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 5,),
                               Text(
-                                petItem['age'],
+                                '${myPet['type']} - ${myPet['age']}',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   color: Colors.grey[600],
                                 ),
                               ),
@@ -165,13 +155,12 @@ class PetScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.lightBlue.withOpacity(.1),
-                          border: Border.all(color: Colors.lightBlue),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
-                              petItem['weight'],
+                              myPet['weight'],
                               style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
@@ -189,13 +178,12 @@ class PetScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.lightBlue.withOpacity(.1),
-                          border: Border.all(color: Colors.lightBlue),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
-                              petItem['height'],
+                              myPet['height'],
                               style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
@@ -213,13 +201,12 @@ class PetScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.lightBlue.withOpacity(.1),
-                          border: Border.all(color: Colors.lightBlue),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
-                              petItem['color'],
+                              myPet['color'],
                               style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
@@ -238,7 +225,7 @@ class PetScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20,),
                   child: Text(
-                    petItem['about'],
+                    myPet['about'],
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -267,7 +254,7 @@ class PetScreen extends StatelessWidget {
                   child: Wrap(
                     spacing: 6,
                     children: List.generate(
-                      behaviour.length,
+                      myPet['behavior'].length,
                       (index) => Container(
                         padding: const EdgeInsets.all(8),
                         margin: const EdgeInsets.symmetric(vertical: 4),
@@ -276,7 +263,7 @@ class PetScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          behaviour[index],
+                          myPet['behavior'][index],
                           style: const TextStyle(
                             fontSize: 15,
                           ),
@@ -296,15 +283,22 @@ class PetScreen extends StatelessWidget {
               color: Colors.white,
               child: Row(
                 children: [
-                  const CircleAvatar(),
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      myPet['ownerImage'],
+                    ),
+                  ),
                   const SizedBox(width: 10,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('Posted by'),
-                      SizedBox(height: 5,),
-                      Text('Nannie Barker', textScaleFactor: 1.1,),
+                    children: [
+                      const Text('Posted by',),
+                      const SizedBox(height: 5,),
+                      Text(
+                        myPet['ownerName'],
+                        textScaleFactor: 1.1,
+                      ),
                     ],
                   ),
                   const Spacer(),
