@@ -13,7 +13,7 @@ class _MapScreenState extends State<MapScreen> {
 
    static const _initialCameraPosition = CameraPosition(
     target: LatLng(30.04600767967174, 31.234485916793346),
-    zoom: 11.5,
+    zoom: 16.8,
   );
 
    late GoogleMapController _googleMapController;
@@ -24,8 +24,9 @@ class _MapScreenState extends State<MapScreen> {
      super.dispose();
    }
 
-  @override
+   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,20 +62,6 @@ class _MapScreenState extends State<MapScreen> {
             lat: 30.062669137820645,
             lng: 31.24409861862659,
             color: 300,
-          ),
-          markerItem(
-            context: context,
-            id: '2',
-            lat: 30.101671585959625,
-            lng: 31.281610317528244,
-            color: 120,
-          ),
-          markerItem(
-            context: context,
-            id: '3',
-            lat: 30.030910002798098,
-            lng: 31.25740472227335,
-            color: 60,
           ),
         },
       ),

@@ -69,18 +69,18 @@ class PetScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 70,),
+                        const SizedBox(height: 50,),
                       ],
                     ),
                     Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
                         horizontal: 15,
-                        vertical: 35,
+                        vertical: 17,
                       ),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(.75),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -117,11 +117,24 @@ class PetScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue,
-                              borderRadius: BorderRadius.circular(13),
+                              color: myPet['gender'] == 'male'
+                                  ? Colors.lightBlue
+                                  : Colors.pink[200],
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: myPet['gender'] == 'male'
+                                      ? Colors.blue.withOpacity(.2)
+                                      : Colors.pink.withOpacity(.15),
+                                  spreadRadius: 5,
+                                  blurRadius: 3,
+                                ),
+                              ]
                             ),
-                            child: const Icon(
-                              Icons.male,
+                            child: Icon(
+                              myPet['gender'] == 'male'
+                                  ? Icons.male
+                                  : Icons.female,
                               size: 32,
                               color: Colors.white,
                             ),

@@ -44,6 +44,7 @@ class FavouritesScreen extends StatelessWidget {
                 name: favourites[index]['name'],
                 address: favourites[index]['address'],
                 favourite: favourites[index]['favourite'],
+                price: favourites[index]['price'],
               ),
             ),
           ),

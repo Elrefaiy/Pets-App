@@ -134,7 +134,6 @@ class AppCubit extends Cubit<AppStates>{
       url: foods,
     ).then((value){
       allFoods = value.data;
-      print(allFoods);
       emit(GetFoodsDataSuccessState());
     }).catchError((error){
       emit(GetFoodsDataErrorState(error));

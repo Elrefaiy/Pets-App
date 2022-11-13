@@ -12,6 +12,7 @@ Widget petItem({
   required name,
   required address,
   required favourite,
+  required price,
 }) => Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
@@ -30,68 +31,90 @@ Widget petItem({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Stack(
-          alignment: AlignmentDirectional.topEnd,
+        Expanded(
+          child: Stack(
+            alignment: AlignmentDirectional.topEnd,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+              ),
+              Container(
+                width: 33,
+                height: 33,
+                margin: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                    Icons.favorite,
+                    color: favourite ? Colors.redAccent : Colors.grey[350],
+                    size: 18,
+                  ),
+
+                ),
+              ),
+            ],
+          ),
+        ),
+        Row(
           children: [
             Container(
-              height: 120,
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 9,),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                color: petFor == 'Selling' ? Colors.blue.withOpacity(.2) : Colors.orange.withOpacity(.3),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                  petFor,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: petFor == 'Selling' ? Colors.blue : Colors.orange[700],
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
-            Container(
-              width: 33,
-              height: 33,
-              margin: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
-              child: IconButton(
-                onPressed: (){},
-                icon: Icon(
-                  Icons.favorite,
-                  color: favourite ? Colors.redAccent : Colors.grey[350],
-                  size: 18,
-                ),
-
+            const Spacer(),
+            Text(
+              price,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: petFor == 'Adoption'
+                    ? Colors.grey
+                    : Colors.black,
+                decoration: petFor == 'Adoption'
+                    ? TextDecoration.lineThrough
+                    : null,
               ),
             ),
+            const SizedBox(width: 10,),
           ],
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 9,),
-          margin: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(.2),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Text(
-              petFor,
-            style: const TextStyle(
-                fontSize: 12,
-                color: Colors.blue,
-                fontWeight: FontWeight.bold
-            ),
-          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10,),
           child: Text(
             name,
             style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Padding(
@@ -113,6 +136,7 @@ Widget petItem({
             ],
           ),
         ),
+        const SizedBox(height: 5,),
       ],
     ),
   ),

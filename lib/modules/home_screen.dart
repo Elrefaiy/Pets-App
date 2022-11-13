@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
@@ -11,54 +12,76 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Category> catItems = [
-      Category(
-        'All Pets',
-        'assets/images/dog.png',
-        Colors.blue.withOpacity(.7),
-        20,
-      ),
-      Category(
-        'Dogs',
-        'assets/images/dog.png',
-        Colors.brown.withOpacity(.7),
-        20,
-      ),
-      Category(
-        'Cats',
-        'assets/images/cat.png',
-        Colors.pink.withOpacity(.3),
-        23,
-      ),
-      Category(
-        'Birds',
-        'assets/images/bird.png',
-        Colors.yellow.withOpacity(.5),
-        30,
-      ),
-      Category(
-        'Hamsters',
-        'assets/images/hamster.png',
-        Colors.orange.withOpacity(.4),
-        26,
-      ),
-    ];
-
-    List<String> titles = [
-      'Newest Pets',
-      'Dogs',
-      'Cats',
-      'Birds',
-      'Hamsters'
-    ];
 
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
 
+
+
         List pets = AppCubit.get(context).pets;
-        List newestPets = [];
+        List newPets = [];
         List dogs = [];
+        List cats = [];
+        List birds = [];
+
+        List<String> titles = [
+          'Newest Pets',
+          'Dogs',
+          'Cats',
+          'Birds',
+        ];
+
+        for (var element in pets) {
+          if(element['category'] == 'new'){
+            newPets.add(element);
+          }else if(element['category'] == 'dog'){
+            dogs.add(element);
+          }else if(element['category'] == 'cat'){
+            cats.add(element);
+          }else{
+            birds.add(element);
+          }
+        }
+
+        List myPetList = [] ;
+        if(AppCubit.get(context).catIndex == 0){
+          myPetList = newPets;
+        }else if (AppCubit.get(context).catIndex == 1){
+          myPetList = dogs;
+        }else if (AppCubit.get(context).catIndex == 2){
+          myPetList = cats;
+        }else{
+          myPetList = birds;
+        }
+
+        List<Category> catItems = [
+          Category(
+            'All Pets',
+            'assets/images/dog.png',
+            Colors.blue.withOpacity(.7),
+            newPets.length,
+          ),
+          Category(
+            'Dogs',
+            'assets/images/dog.png',
+            Colors.brown.withOpacity(.7),
+            dogs.length,
+          ),
+          Category(
+            'Cats',
+            'assets/images/cat.png',
+            Colors.pink.withOpacity(.3),
+            cats.length,
+          ),
+          Category(
+            'Birds',
+            'assets/images/bird.png',
+            Colors.yellow.withOpacity(.5),
+            birds.length,
+          ),
+        ];
+
 
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -236,7 +259,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   separatorBuilder: (context, index) => const SizedBox(width: 10,),
-                  itemCount: 5,
+                  itemCount: catItems.length,
                   scrollDirection: Axis.horizontal,
                 ),
               ),
@@ -253,23 +276,33 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              GridView.count(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: .7,
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(
-                    pets.length, (index) => petItem(
+              ConditionalBuilder(
+                condition: pets.isNotEmpty,
+                builder: (context)=> GridView.count(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: .7,
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: List.generate(
+                    myPetList.length, (index) => petItem(
                     context: context,
-                    id: pets[index]['id'],
-                    image: pets[index]['image'],
-                    name: pets[index]['name'],
-                    petFor: pets[index]['petFor'],
-                    address: pets[index]['address'],
-                    favourite: pets[index]['favourite'],
+                    id: myPetList[index]['id'],
+                    image: myPetList[index]['image'],
+                    name: myPetList[index]['name'],
+                    petFor: myPetList[index]['petFor'],
+                    address: myPetList[index]['address'],
+                    favourite: myPetList[index]['favourite'],
+                    price: myPetList[index]['price'],
+                  ),
+                  ),
+                ),
+                fallback: (context)=> const SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
               ),
