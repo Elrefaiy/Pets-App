@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/modules/pet_screen.dart';
@@ -16,7 +15,9 @@ Widget petItem({
 }) => Container(
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
-    border: Border.all(color: Colors.grey.withOpacity(.4)),
+    border: Border.all(
+      color: Colors.grey.withOpacity(.4),
+    ),
   ),
   child: GestureDetector(
     onTap: (){
@@ -24,7 +25,9 @@ Widget petItem({
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: ((context) => PetScreen(myPet: AppCubit.get(context).myPet)),
+          builder: ((context) => PetScreen(
+            myPet: AppCubit.get(context).myPet,
+          )),
         ),
       );
     },
@@ -76,15 +79,19 @@ Widget petItem({
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 9,),
               margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: petFor == 'Selling' ? Colors.blue.withOpacity(.2) : Colors.orange.withOpacity(.3),
-                borderRadius: BorderRadius.circular(15),
+                color: petFor == 'Selling'
+                    ? Colors.blue.withOpacity(.2)
+                    : Colors.orange.withOpacity(.3),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
                   petFor,
                 style: TextStyle(
-                    fontSize: 12,
-                    color: petFor == 'Selling' ? Colors.blue : Colors.orange[700],
-                    fontWeight: FontWeight.bold
+                    fontSize: 13,
+                    color: petFor == 'Selling'
+                        ? Colors.blue
+                        : Colors.orange[700],
+                    fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -126,11 +133,15 @@ Widget petItem({
                 color: Colors.grey,
                 size: 18,
               ),
-              Text(
-                address,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
+              Expanded(
+                child: Text(
+                  address,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
@@ -143,26 +154,31 @@ Widget petItem({
 );
 
 Marker markerItem({
-    required context,
-    required String id,
-    required double lat,
-    required double lng,
-    required double color,
+  required context,
+  required id,
+  required lat,
+  required lng,
+  required color,
+  required petImage,
+  required ownerName,
+  required ownerImage,
+  required rate,
+  required reviews,
+  required price,
 })=> Marker(
     markerId: MarkerId(id),
-    infoWindow: const InfoWindow(
-      title: 'Lina Amane',
+    infoWindow: InfoWindow(
+      title: ownerName,
       snippet: '1,2 km away from you',
     ),
     icon: BitmapDescriptor.defaultMarkerWithHue(color),
-    alpha: .8,
     position: LatLng(lat, lng),
     onTap: (){
       showDialog(
         context: context,
         builder: ((context) => Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Spacer(),
             SimpleDialog(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 15,
@@ -171,27 +187,46 @@ Marker markerItem({
               children: [
                 Row(
                   children: [
-                    const Text(
-                      ' Lina Amane ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    Expanded(
+                      child: Image(
+                        image: NetworkImage(
+                          ownerImage,
+                        ),
+                        fit: BoxFit.cover,
+                        height: 120,
                       ),
                     ),
-                    const Icon(
-                      Icons.verified,
-                      color: Colors.lightGreen,
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: (){},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.heart,
-                        color: Colors.grey,
+                    const SizedBox(width: 12,),
+                    Expanded(
+                      child: Image(
+                        image: NetworkImage(
+                          petImage,
+                        ),
+                        fit: BoxFit.cover,
+                        height: 120,
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(height: 10,),
+                Row(
+                  children: [
+                    const SizedBox(width: 5,),
+                    Text(
+                      ownerName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(width: 10,),
+                    const Icon(
+                      Icons.verified,
+                      color: Colors.lightGreen,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5,),
                 Row(
                   children: const [
                     Icon(
@@ -207,44 +242,43 @@ Marker markerItem({
                     ),
                   ],
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 5,),
                 Row(
                   children: [
-                    const SizedBox(width: 10,),
                     Icon(
                       Icons.star,
                       color: Colors.yellow[600],
                     ),
-                    const Text(
-                      ' 4,9',
-                      style: TextStyle(
+                    Text(
+                      ' $rate',
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
                       ),
                     ),
                     const SizedBox(width: 20,),
-                    const Text(
-                      '20 reviews',
-                      style: TextStyle(
+                    Text(
+                      '$reviews reviews',
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
                       ),
                     ),
                     const Spacer(),
-                    const Text(
-                      '\$ 20',
-                      style: TextStyle(
+                    Text(
+                      price,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 24,
                       ),
                     ),
-                    const SizedBox(width: 15,),
+                    const SizedBox(width: 5,),
                   ],
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(height: 10,),
               ],
             ),
-            const SizedBox(height: 170,),
+            const SizedBox(height: 15,),
           ],
         )),
       );

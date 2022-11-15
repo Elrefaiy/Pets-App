@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
         List<Category> catItems = [
           Category(
             'All Pets',
-            'assets/images/dog.png',
+            'assets/images/allPets.png',
             Colors.blue.withOpacity(.7),
             newPets.length,
           ),
@@ -71,13 +71,13 @@ class HomeScreen extends StatelessWidget {
           Category(
             'Cats',
             'assets/images/cat.png',
-            Colors.pink.withOpacity(.3),
+            Colors.pink.withOpacity(.4),
             cats.length,
           ),
           Category(
             'Birds',
             'assets/images/bird.png',
-            Colors.yellow.withOpacity(.5),
+            Colors.orange.withOpacity(.6),
             birds.length,
           ),
         ];
@@ -231,18 +231,18 @@ class HomeScreen extends StatelessWidget {
                           color: AppCubit.get(context).catIndex == index
                               ? catItems[index].color
                               : Colors.grey.withOpacity(.4),
-                          width: AppCubit.get(context).catIndex == index ? 2 : .75,
+                          width: 1,
                         ),
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children:[
-                          ClipOval(
-                            child: CircleAvatar(
-                              backgroundColor: catItems[index].color,
-                              radius: 21,
-                              child: Image(
-                                image: AssetImage(catItems[index].image),
-                              ),
+                          CircleAvatar(
+                            backgroundColor:catItems[index].color,
+                            radius: 21,
+                            child: Image(
+                              image: AssetImage(catItems[index].image),
+                              width: 23,
                             ),
                           ),
                           const SizedBox(width: 10,),

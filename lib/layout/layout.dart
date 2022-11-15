@@ -65,6 +65,7 @@ class Layout extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         AppCubit.get(context).changeCurrentIndex(0);
+                        AppCubit.get(context).getPetsData();
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -141,6 +142,7 @@ class Layout extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         AppCubit.get(context).changeCurrentIndex(2);
+                        AppCubit.get(context).getFoodsData();
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

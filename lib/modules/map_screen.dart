@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/shared/components/components.dart';
 
 class MapScreen extends StatefulWidget {
@@ -11,21 +13,42 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
 
-   static const _initialCameraPosition = CameraPosition(
-    target: LatLng(30.04600767967174, 31.234485916793346),
+  Location location = Location();
+
+  static const initialCameraPosition = CameraPosition(
+    target: LatLng(
+      30.439782815266412,
+      30.966845713555813,
+    ),
     zoom: 16.8,
   );
 
-   late GoogleMapController _googleMapController;
+   late GoogleMapController googleMapController;
 
    @override
    void dispose() {
-     _googleMapController.dispose();
+     googleMapController.dispose();
      super.dispose();
    }
 
    @override
   Widget build(BuildContext context) {
+
+     List pets = AppCubit.get(context).pets;
+
+     Set<Marker> markers = pets.map((element) => markerItem(
+       context: context,
+       id: element['id'],
+       lat: element['latitude'],
+       lng: element['longitude'],
+       color: element['markerColor'],
+       petImage: element['image'],
+       ownerImage: element['ownerImage'],
+       ownerName: element['ownerName'],
+       rate: element['rate'],
+       reviews: element['reviews'],
+       price: element['price'],
+     )).toSet();
 
     return Scaffold(
       appBar: AppBar(
@@ -46,33 +69,42 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
       body: GoogleMap(
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        initialCameraPosition: _initialCameraPosition,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
+        zoomControlsEnabled: true,
+        buildingsEnabled: false,
+        polylines: {
+          const Polyline (
+              polylineId: PolylineId('1'),
+              visible: true,
+              points: [
+                LatLng(30.436367772624280, 30.9570687264220,),
+              ],
+              width: 4,
+              color: Colors.red,
+              startCap: Cap.roundCap,
+              endCap: Cap.buttCap
+          ),
+        },
+        initialCameraPosition: initialCameraPosition,
         mapType: MapType.normal,
-        onMapCreated: (controller)=> _googleMapController = controller,
+        onMapCreated: (controller){
+          googleMapController = controller;
+          },
         onTap: (l){
           print(l.toString());
         },
         trafficEnabled: false,
-        markers: {
-          markerItem(
-            context: context,
-            id: '1',
-            lat: 30.062669137820645,
-            lng: 31.24409861862659,
-            color: 300,
-          ),
-        },
+        markers: markers,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          _googleMapController.animateCamera(
-            CameraUpdate.newCameraPosition(_initialCameraPosition),
-          );
-        },
-        child: const Icon(Icons.my_location_sharp),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     googleMapController.animateCamera(
+      //       CameraUpdate.newCameraPosition(initialCameraPosition),
+      //     );
+      //   },
+      //   child: const Icon(Icons.my_location_sharp),
+      // ),
     );
   }
 

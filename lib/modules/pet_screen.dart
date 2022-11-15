@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 
@@ -120,7 +119,7 @@ class PetScreen extends StatelessWidget {
                               color: myPet['gender'] == 'male'
                                   ? Colors.lightBlue
                                   : Colors.pink[200],
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
                                   color: myPet['gender'] == 'male'
@@ -147,11 +146,17 @@ class PetScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
-                    children: const [
-                      FaIcon(FontAwesomeIcons.circleInfo, size: 20,),
+                    children: [
+                      const Image(
+                        image: AssetImage(
+                          'assets/images/petIcon.png',
+                        ),
+                        width: 18,
+                      ),
+                      const SizedBox(width: 8,),
                       Text(
-                        ' About Maine',
-                        style: TextStyle(
+                        'About ${myPet['name'].toString().split(' ').first}',
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -249,11 +254,17 @@ class PetScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
-                    children: const [
-                      FaIcon(FontAwesomeIcons.circleInfo, size: 20,),
+                    children: [
+                      const Image(
+                        image: AssetImage(
+                          'assets/images/petIcon.png',
+                        ),
+                        width: 18,
+                      ),
+                      const SizedBox(width: 8,),
                       Text(
-                        ' Maine Behaviour',
-                        style: TextStyle(
+                        '${myPet['name'].toString().split(' ').first} Behaviour',
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -291,9 +302,11 @@ class PetScreen extends StatelessWidget {
           ),
           bottomNavigationBar: BottomAppBar(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
               height: 80,
-              color: Colors.white,
               child: Row(
                 children: [
                   CircleAvatar(
