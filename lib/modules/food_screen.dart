@@ -51,6 +51,9 @@ class FoodScreen extends StatelessWidget {
                 ),
                 fit: BoxFit.cover,
               ),
+              border: Border.all(
+                color: Colors.blueGrey.withOpacity(.4),
+              ),
             ),
           ),
           Container(
@@ -123,7 +126,14 @@ class FoodScreen extends StatelessWidget {
              ),
              const Padding(
                padding: EdgeInsets.symmetric(horizontal: 20),
-               child: Text('Newest Food Products'),
+               child: Text(
+                 'Newest Food Products',
+                 style: TextStyle(
+                   fontSize: 14,
+                   color: Color(0xff1e4558),
+                   fontWeight: FontWeight.bold,
+                 ),
+               ),
              ),
              const SizedBox(height: 10,),
              ListView.separated(

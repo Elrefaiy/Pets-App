@@ -73,6 +73,7 @@ class OnBoardingScreen extends StatelessWidget {
                   model.title,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Color(0xff1e4558),
                     fontSize: 26,
                   ),
                   textAlign: TextAlign.center,
@@ -82,9 +83,9 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Text(
                   model.body,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
-                    color: Colors.grey,
+                    color: Colors.blueGrey[300],
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -116,19 +117,19 @@ class OnBoardingScreen extends StatelessWidget {
             effect: const SlideEffect(
               spacing: 10.0,
               radius: 5.0,
-              dotWidth: 15.0,
-              dotHeight: 5.0,
+              dotWidth: 20.0,
+              dotHeight: 6.0,
               paintStyle: PaintingStyle.stroke,
               strokeWidth: 1.5,
-              dotColor: Color(0x2F505050),
-              activeDotColor: Colors.blue,
+              dotColor: Color(0x52FF5252),
+              activeDotColor: Color(0xdddc4753),
             ),
           ),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: Color(0xff1e4558),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),

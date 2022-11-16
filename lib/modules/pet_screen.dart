@@ -79,15 +79,8 @@ class PetScreen extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.blueGrey.withOpacity(.8),
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(.2),
-                            spreadRadius: 3,
-                            blurRadius: 3,
-                          ),
-                        ],
                       ),
                       child: Row(
                         children: [
@@ -97,8 +90,9 @@ class PetScreen extends StatelessWidget {
                             children: [
                               Text(
                                 myPet['name'],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 26,
+                                  color: Colors.grey[100],
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -107,7 +101,7 @@ class PetScreen extends StatelessWidget {
                                 '${myPet['type']} - ${myPet['age']}',
                                 style: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.grey[600],
+                                  color: Colors.grey[100],
                                 ),
                               ),
                             ],
@@ -117,25 +111,16 @@ class PetScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: myPet['gender'] == 'male'
-                                  ? Colors.lightBlue
-                                  : Colors.pink[200],
+                                  ? const Color(0xff1e4558)
+                                  : const Color(0xffdc4753),
                               borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: myPet['gender'] == 'male'
-                                      ? Colors.blue.withOpacity(.2)
-                                      : Colors.pink.withOpacity(.15),
-                                  spreadRadius: 5,
-                                  blurRadius: 3,
-                                ),
-                              ]
                             ),
                             child: Icon(
                               myPet['gender'] == 'male'
                                   ? Icons.male
                                   : Icons.female,
                               size: 32,
-                              color: Colors.white,
+                              color: Colors.grey[100],
                             ),
                           ),
                         ],
@@ -156,9 +141,10 @@ class PetScreen extends StatelessWidget {
                       const SizedBox(width: 8,),
                       Text(
                         'About ${myPet['name'].toString().split(' ').first}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.blueGrey[700],
                         ),
                       ),
                     ],
@@ -172,20 +158,25 @@ class PetScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue.withOpacity(.1),
+                          color: Colors.blueGrey.withOpacity(.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
                               myPet['weight'],
-                              style: const TextStyle(
-                                color: Colors.blue,
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 5,),
-                            const Text('Weight',),
+                            Text(
+                              'Weight',
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -195,20 +186,25 @@ class PetScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue.withOpacity(.1),
+                          color: Colors.blueGrey.withOpacity(.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
                               myPet['height'],
-                              style: const TextStyle(
-                                color: Colors.blue,
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 5,),
-                            const Text('Height',),
+                            Text(
+                              'Height',
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -218,20 +214,25 @@ class PetScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue.withOpacity(.1),
+                          color: Colors.blueGrey.withOpacity(.2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                           children: [
                             Text(
                               myPet['color'],
-                              style: const TextStyle(
-                                color: Colors.blue,
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 5,),
-                            const Text('Color',),
+                            Text(
+                              'Color',
+                              style: TextStyle(
+                                color: Colors.blueGrey[700],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -245,8 +246,8 @@ class PetScreen extends StatelessWidget {
                   child: Text(
                     myPet['about'],
                     style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
+                      fontSize: 15,
+                      color: Colors.blueGrey,
                     ),
                   ),
                 ),
@@ -264,8 +265,9 @@ class PetScreen extends StatelessWidget {
                       const SizedBox(width: 8,),
                       Text(
                         '${myPet['name'].toString().split(' ').first} Behaviour',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
+                          color: Colors.blueGrey[700],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -283,13 +285,16 @@ class PetScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue),
+                          border: Border.all(
+                            color: Colors.blueGrey.withOpacity(.7),
+                          ),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           myPet['behavior'][index],
                           style: const TextStyle(
                             fontSize: 15,
+                            color: Colors.blueGrey
                           ),
                         ),
                       ),
@@ -317,22 +322,42 @@ class PetScreen extends StatelessWidget {
                   const SizedBox(width: 10,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Posted by',),
+                      const SizedBox(height: 5,),
+                      const Text(
+                        'Posted by',
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                        ),
+                      ),
                       const SizedBox(height: 5,),
                       Text(
                         myPet['ownerName'],
-                        textScaleFactor: 1.1,
+                        style: TextStyle(
+                          color: Colors.blueGrey[700],
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   const Spacer(),
-                  TextButton(
-                    onPressed: (){},
-                    child: const Text(
-                      'Contact Me',
-                      textScaleFactor: 1.05,
+                  Container(
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffdc4753),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: (){},
+                      child: const Text(
+                        'Contact Me',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -14,9 +14,10 @@ Widget petItem({
   required price,
 }) => Container(
   decoration: BoxDecoration(
+    color: Colors.white,
     borderRadius: BorderRadius.circular(10),
     border: Border.all(
-      color: Colors.grey.withOpacity(.4),
+      color: Colors.blueGrey.withOpacity(.4),
     ),
   ),
   child: GestureDetector(
@@ -64,7 +65,9 @@ Widget petItem({
                   onPressed: (){},
                   icon: Icon(
                     Icons.favorite,
-                    color: favourite ? Colors.redAccent : Colors.grey[350],
+                    color: favourite
+                        ? Colors.redAccent
+                        : Colors.blueGrey[200],
                     size: 18,
                   ),
 
@@ -80,7 +83,7 @@ Widget petItem({
               margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: petFor == 'Selling'
-                    ? Colors.blue.withOpacity(.2)
+                    ? Colors.blueGrey.withOpacity(.2)
                     : Colors.orange.withOpacity(.3),
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -89,7 +92,7 @@ Widget petItem({
                 style: TextStyle(
                     fontSize: 13,
                     color: petFor == 'Selling'
-                        ? Colors.blue
+                        ? Colors.blueGrey[700]
                         : Colors.orange[700],
                     fontWeight: FontWeight.bold,
                 ),
@@ -102,8 +105,8 @@ Widget petItem({
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: petFor == 'Adoption'
-                    ? Colors.grey
-                    : Colors.black,
+                    ? Colors.blueGrey[200]
+                    : const Color(0xcddc4753),
                 decoration: petFor == 'Adoption'
                     ? TextDecoration.lineThrough
                     : null,
@@ -116,8 +119,9 @@ Widget petItem({
           padding: const EdgeInsets.symmetric(horizontal: 10,),
           child: Text(
             name,
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 19,
+                color: Colors.blueGrey[700],
                 fontWeight: FontWeight.bold,
             ),
             maxLines: 1,
@@ -130,7 +134,7 @@ Widget petItem({
             children: [
               const Icon(
                 Icons.location_on_outlined,
-                color: Colors.grey,
+                color: Colors.blueGrey,
                 size: 18,
               ),
               Expanded(
@@ -138,7 +142,7 @@ Widget petItem({
                   address,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.grey,
+                    color: Colors.blueGrey,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -160,6 +164,7 @@ Marker markerItem({
   required lng,
   required color,
   required petImage,
+  required petName,
   required ownerName,
   required ownerImage,
   required rate,
@@ -214,8 +219,9 @@ Marker markerItem({
                     const SizedBox(width: 5,),
                     Text(
                       ownerName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey[700],
                         fontSize: 20,
                       ),
                     ),
@@ -227,20 +233,12 @@ Marker markerItem({
                   ],
                 ),
                 const SizedBox(height: 5,),
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Colors.grey,
-                    ),
-                    Text(
-                      ' 1,2 km away from you',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                Text(
+                  '  the owner of : $petName',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                  ),
                 ),
                 const SizedBox(height: 5,),
                 Row(
@@ -253,7 +251,7 @@ Marker markerItem({
                       ' $rate',
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Colors.blueGrey,
                       ),
                     ),
                     const SizedBox(width: 20,),
@@ -261,7 +259,7 @@ Marker markerItem({
                       '$reviews reviews',
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Colors.blueGrey,
                       ),
                     ),
                     const Spacer(),
@@ -269,6 +267,7 @@ Marker markerItem({
                       price,
                       style: const TextStyle(
                         fontWeight: FontWeight.w900,
+                        color: Color(0xffdc4753),
                         fontSize: 24,
                       ),
                     ),
@@ -295,16 +294,16 @@ Widget foodItem({
   width: double.infinity,
   height: 140,
   decoration: BoxDecoration(
-    color: Colors.grey.withOpacity(.06),
+    color: Colors.white,
     border: Border.all(
-      color: Colors.grey,
+      color: Colors.blueGrey.withOpacity(.4),
     ),
     borderRadius: BorderRadius.circular(10),
   ),
   child: Row(
     children: [
       Container(
-        height: 130,
+        height: 140,
         width: 160,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -319,7 +318,11 @@ Widget foodItem({
           ),
         ),
       ),
-      const SizedBox(width: 15,),
+      Container(
+        color: Colors.blueGrey.withOpacity(.4),
+        width: 1,
+      ),
+      const SizedBox(width: 10,),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,8 +330,9 @@ Widget foodItem({
             const SizedBox(height: 10,),
             Text(
               name,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
+                color: Colors.blueGrey[700],
                 fontSize: 18,
               ),
               maxLines: 1,
@@ -337,9 +341,10 @@ Widget foodItem({
             Text(
               about,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
+                color: Colors.blueGrey,
               ),
-              maxLines: 3,
+              maxLines: 4,
               overflow: TextOverflow.ellipsis,
             ),
             const Spacer(),
@@ -350,12 +355,18 @@ Widget foodItem({
                   color: Colors.yellow[700],
                   size: 20,
                 ),
-                Text('  $reviews'),
+                Text(
+                  '  $reviews',
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                  ),
+                ),
                 const Spacer(),
                 Text(
                   price,
                   style: const TextStyle(
                     fontSize: 22,
+                    color: Color(0xffdc4753),
                     fontWeight: FontWeight.w900,
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:location/location.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
@@ -137,6 +138,19 @@ class AppCubit extends Cubit<AppStates>{
       emit(GetFoodsDataSuccessState());
     }).catchError((error){
       emit(GetFoodsDataErrorState(error));
+    });
+  }
+
+  double lat = 30.440067;
+  double lng = 30.965865;
+  void setMyLocation(Location l){
+    emit(SetMyLocationLoadingState());
+    l.getLocation().then((value){
+      lat = value.latitude!;
+      lng = value.longitude!;
+      emit(SetMyLocationSuccessState());
+    }).catchError((error){
+      emit(SetMyLocationErrorState(error));
     });
   }
 

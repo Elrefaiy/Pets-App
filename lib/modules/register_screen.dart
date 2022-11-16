@@ -24,10 +24,10 @@ class RegisterScreen extends StatelessWidget {
             state is UserLoginSuccessState ||
             state is AnonymousSuccessState){
           Fluttertoast.showToast(
-            msg: 'you have successfully logged in',
+            msg: 'You have successfully logged in.',
             fontSize: 16,
             toastLength: Toast.LENGTH_LONG,
-            backgroundColor: const Color(0x8b27db24),
+            backgroundColor: Colors.green[400]!.withOpacity(.8),
             gravity: ToastGravity.TOP,
           );
           Navigator.pushAndRemoveUntil(
@@ -41,10 +41,10 @@ class RegisterScreen extends StatelessWidget {
             state is UserSignupErrorState ||
             state is AnonymousErrorState ){
           Fluttertoast.showToast(
-            msg: state.error,
+            msg: state.error.toString().split(']').last,
             fontSize: 16,
             toastLength: Toast.LENGTH_LONG,
-            backgroundColor: const Color(0x8bff0000),
+            backgroundColor: const Color(0xc4dc4753),
             gravity: ToastGravity.TOP,
           );
         }
@@ -65,49 +65,15 @@ class RegisterScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20,),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 60,),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        Container(
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            color: Color(0xc6ffffff),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x14323232),
-                                spreadRadius: 10,
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: TextButton(
-                            onPressed: (){
-                              AppCubit.get(context).anonymous();
-                            },
-                            child: Text(
-                              'continue as guest',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 50,),
+                    const SizedBox(height: 150,),
                     Text(
                       AppCubit.get(context).registerIndex == 0
                           ? 'Welcome Again!'
                           : "Let's Get Started!",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 35,
-                        color: Colors.blueGrey,
+                        color: Colors.blueGrey[700],
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -151,7 +117,7 @@ class RegisterScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: Colors.blue,
+                                            color: const Color(0xffdc4753),
                                             width: AppCubit.get(context).registerIndex == 0
                                                 ? 3
                                                 : 0,
@@ -164,8 +130,9 @@ class RegisterScreen extends StatelessWidget {
                                           style: TextStyle(
                                             fontSize: 20,
                                             color: AppCubit.get(context).registerIndex == 0
-                                                ? Colors.blue
-                                                : Colors.grey,
+                                                ? const Color(0xffdc4753)
+                                                : Colors.blueGrey[200],
+                                            fontWeight: FontWeight.bold
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -180,7 +147,7 @@ class RegisterScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: Colors.blue,
+                                            color: const Color(0xffdc4753),
                                             width: AppCubit.get(context).registerIndex == 1
                                                 ? 3
                                                 : 0,
@@ -193,8 +160,8 @@ class RegisterScreen extends StatelessWidget {
                                           style: TextStyle(
                                             fontSize: 20,
                                             color: AppCubit.get(context).registerIndex == 1
-                                                ? Colors.blue
-                                                : Colors.grey,
+                                                ? const Color(0xffdc4753)
+                                                : Colors.blueGrey[200],
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -258,15 +225,22 @@ class RegisterScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            const Spacer(),
+                                            const Text(
+                                              'or, you can just',
+                                              style: TextStyle(
+                                                color: Colors.blueGrey,
+                                              ),
+                                            ),
                                             TextButton(
-                                              onPressed: () {},
+                                              onPressed: (){
+                                                AppCubit.get(context).anonymous();
+                                              },
                                               child: const Text(
-                                                'forget password ?',
+                                                'continue as a guest',
                                                 style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ),
@@ -366,7 +340,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: const BoxDecoration(
-                              color: Colors.blue,
+                              color: Color(0xff1e4558),
                               shape: BoxShape.circle,
                             ),
                             child: ConditionalBuilder(

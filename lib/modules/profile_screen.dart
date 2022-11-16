@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
                             decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  'https://media.istockphoto.com/id/165066428/vector/pets.jpg?s=612x612&w=0&k=20&c=5c01R_8H6cM9PDkHYXcFHTxjmCRcq_mD7C4YNLNpWho=',
+                                  'https://i.pinimg.com/564x/d9/b3/7f/d9b37f2a81e9b516a2d0d6c1ceab1a20.jpg',
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -40,13 +40,13 @@ class ProfileScreen extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             height: 400,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: AlignmentDirectional.topCenter,
                                 end: AlignmentDirectional.bottomCenter,
                                 colors: [
-                                  Color(0xffffffff),
-                                  Color(0x10ffffff),
+                                  Colors.grey[100]!,
+                                  const Color(0x11ffffff),
                                 ],
                               ),
                             ),
@@ -63,15 +63,16 @@ class ProfileScreen extends StatelessWidget {
                                 const Text(
                                   'Georgie Cole',
                                   style: TextStyle(
-                                    // color: Colors.white,
+                                    color: Color(0xff1e4558),
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Text(
+                                Text(
                                   'Dogs Lover',
                                   style: TextStyle(
                                     fontSize: 20,
+                                    color: Colors.blueGrey[700],
                                   ),
                                 ),
                                 const SizedBox(height: 25,),
@@ -159,13 +160,9 @@ class ProfileScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      spreadRadius: 2,
-                      blurRadius: 4,
-                      color: Colors.grey.withOpacity(.3)
-                    ),
-                  ],
+                  border: Border.all(
+                    color: Colors.blueGrey.withOpacity(.4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,6 +171,7 @@ class ProfileScreen extends StatelessWidget {
                       'Account Information',
                       style: TextStyle(
                         fontSize: 16,
+                        color: Color(0xff1e4558),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -183,7 +181,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           'Phone number',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.blueGrey,
                             fontSize: 16,
                           ),
                           maxLines: 4,
@@ -194,6 +192,7 @@ class ProfileScreen extends StatelessWidget {
                           '419-921-8500',
                           style: TextStyle(
                             fontSize: 16,
+                            color: Color(0xffdc4753),
                           ),
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
@@ -201,7 +200,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.blueGrey.withOpacity(.4),
                       width: double.infinity,
                       height: 1,
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -211,7 +210,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           'Email',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.blueGrey,
                             fontSize: 16,
                           ),
                           maxLines: 4,
@@ -222,6 +221,7 @@ class ProfileScreen extends StatelessWidget {
                           'elrefaiy77@gmail.com',
                           style: TextStyle(
                             fontSize: 16,
+                            color: Color(0xffdc4753),
                           ),
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
@@ -229,7 +229,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.blueGrey.withOpacity(.4),
                       width: double.infinity,
                       height: 1,
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -239,7 +239,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           'Address',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.blueGrey,
                             fontSize: 16,
                           ),
                           maxLines: 4,
@@ -250,6 +250,7 @@ class ProfileScreen extends StatelessWidget {
                           '2944 Genoveva Pine',
                           style: TextStyle(
                             fontSize: 16,
+                            color: Color(0xffdc4753),
                           ),
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
@@ -268,13 +269,9 @@ class ProfileScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        color: Colors.grey.withOpacity(.3)
-                    ),
-                  ],
+                  border: Border.all(
+                    color: Colors.blueGrey.withOpacity(.4),
+                  ),
                 ),
                 child: TextButton(
                   onPressed: (){

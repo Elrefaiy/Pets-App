@@ -20,9 +20,6 @@ class Layout extends StatelessWidget {
                   title: Text(
                     AppCubit.get(context)
                         .title[AppCubit.get(context).currentIndex],
-                    style: const TextStyle(
-                      color: Colors.black,
-                    ),
                   ),
                   actions: [
                     IconButton(
@@ -30,7 +27,6 @@ class Layout extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.bell,
                         size: 22,
-                        color: Colors.black,
                       ),
                     ),
                     const CircleAvatar(
@@ -73,8 +69,8 @@ class Layout extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.house,
                             color: AppCubit.get(context).currentIndex == 0
-                                ? Colors.blue
-                                : Colors.grey[400],
+                                ? const Color(0xffdc4753)
+                                : Colors.blueGrey[200],
                             size: 20,
                           ),
                           const SizedBox(
@@ -84,12 +80,12 @@ class Layout extends StatelessWidget {
                             'Home',
                             style: AppCubit.get(context).currentIndex == 0
                                 ? const TextStyle(
-                                    color: Colors.blue,
+                                    color: Color(0xffdc4753),
                                     fontSize: 12,
                                     fontWeight: FontWeight.w800,
                                   )
-                                : const TextStyle(
-                                    color: Colors.grey,
+                                : TextStyle(
+                                    color: Colors.blueGrey[200],
                                     fontSize: 12,
                                   ),
                           ),
@@ -111,8 +107,8 @@ class Layout extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.solidHeart,
                             color: AppCubit.get(context).currentIndex == 1
-                                ? Colors.blue
-                                : Colors.grey[400],
+                                ? const Color(0xffdc4753)
+                                : Colors.blueGrey[200],
                             size: 20,
                           ),
                           const SizedBox(
@@ -122,14 +118,14 @@ class Layout extends StatelessWidget {
                             'Saved',
                             style: AppCubit.get(context).currentIndex == 1
                                 ? const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w800,
-                                  )
-                                : const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                  ),
+                              color: Color(0xffdc4753),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w800,
+                            )
+                                : TextStyle(
+                              color: Colors.blueGrey[200],
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
@@ -150,8 +146,8 @@ class Layout extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.bone,
                             color: AppCubit.get(context).currentIndex == 2
-                                ? Colors.blue
-                                : Colors.grey[400],
+                                ? const Color(0xffdc4753)
+                                : Colors.blueGrey[200],
                             size: 20,
                           ),
                           const SizedBox(
@@ -161,14 +157,14 @@ class Layout extends StatelessWidget {
                             'Foods',
                             style: AppCubit.get(context).currentIndex == 2
                                 ? const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w800,
-                                  )
-                                : const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                  ),
+                              color: Color(0xffdc4753),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w800,
+                            )
+                                : TextStyle(
+                              color: Colors.blueGrey[200],
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
@@ -188,8 +184,8 @@ class Layout extends StatelessWidget {
                           FaIcon(
                             FontAwesomeIcons.solidUser,
                             color: AppCubit.get(context).currentIndex == 3
-                                ? Colors.blue
-                                : Colors.grey[400],
+                                ? const Color(0xffdc4753)
+                                : Colors.blueGrey[200],
                             size: 20,
                           ),
                           const SizedBox(
@@ -199,14 +195,14 @@ class Layout extends StatelessWidget {
                             'Profile',
                             style: AppCubit.get(context).currentIndex == 3
                                 ? const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w800,
-                                  )
-                                : const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                  ),
+                              color: Color(0xffdc4753),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w800,
+                            )
+                                : TextStyle(
+                              color: Colors.blueGrey[200],
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
@@ -225,6 +221,7 @@ class Layout extends StatelessWidget {
                 ),
               );
             },
+            backgroundColor: Color(0xff1e4558),
             child: const Icon(
               Icons.location_pin,
             ),
