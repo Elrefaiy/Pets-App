@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:location/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
@@ -11,12 +12,12 @@ import 'package:pets_application/shared/network/end_points.dart';
 import 'package:pets_application/shared/network/local/cache_helper.dart';
 import 'package:pets_application/shared/network/remote/dio_helper.dart';
 
-class AppCubit extends Cubit<AppStates>{
+class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
   static AppCubit get(context) => BlocProvider.of(context);
 
-  int registerIndex = 0 ;
-  void changeRegisterIndex(int index){
+  int registerIndex = 0;
+  void changeRegisterIndex(int index) {
     registerIndex = index;
     emit(ChangeRegisterIndexState());
   }
@@ -24,17 +25,20 @@ class AppCubit extends Cubit<AppStates>{
   void createUser({
     required String email,
     required String password,
-  }){
+  }) {
     emit(UserSignupLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    ).then((value){
+    )
+        .then((value) {
       CacheHelper.putData(
         key: 'token',
-        value: value.user!.uid.toString(),);
+        value: value.user!.uid.toString(),
+      );
       emit(UserSignupSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(UserSignupErrorState(error.toString()));
     });
   }
@@ -42,50 +46,54 @@ class AppCubit extends Cubit<AppStates>{
   void userLogin({
     required String email,
     required String password,
-  }){
+  }) {
     emit(UserLoginLoadingState());
-    FirebaseAuth.instance.signInWithEmailAndPassword(
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
       email: email,
       password: password,
-    ).then((value){
+    )
+        .then((value) {
       CacheHelper.putData(
         key: 'token',
-        value: value.user!.uid.toString(),);
+        value: value.user!.uid.toString(),
+      );
       emit(UserLoginSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(UserLoginErrorState(error.toString()));
     });
   }
 
-  void anonymous(){
+  void anonymous() {
     emit(AnonymousLoadingState());
-    FirebaseAuth.instance.signInAnonymously().then((value){
+    FirebaseAuth.instance.signInAnonymously().then((value) {
       CacheHelper.putData(
         key: 'token',
-        value: value.user!.uid.toString(),);
+        value: value.user!.uid.toString(),
+      );
       emit(AnonymousSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(AnonymousErrorState(error));
     });
   }
 
-  void signOut(){
+  void signOut() {
     emit(UserSignOutLoadingState());
     CacheHelper.removeData(key: 'token');
-    FirebaseAuth.instance.signOut().then((value){
+    FirebaseAuth.instance.signOut().then((value) {
       emit(UserSignOutSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(UserSignOutErrorState(error));
     });
   }
 
   bool isHidden = true;
-  void toggleHide(){
+  void toggleHide() {
     isHidden = !isHidden;
     emit(ChangePasswordVisibilityState());
   }
 
-  int currentIndex = 0 ;
+  int currentIndex = 0;
   List<String> title = [
     'Pets Store',
     'Favourites',
@@ -98,59 +106,47 @@ class AppCubit extends Cubit<AppStates>{
     const FoodScreen(),
     const ProfileScreen(),
   ];
-  void changeCurrentIndex(int index){
+  void changeCurrentIndex(int index) {
     currentIndex = index;
     emit(ChangeCurrentIndexState());
   }
 
-  int catIndex = 0 ;
-  void changeCatIndex(int index){
+  int catIndex = 0;
+  void changeCatIndex(int index) {
     catIndex = index;
     emit(ChangeCatIndexState());
   }
 
+  List<dynamic> pets = [];
+  Set<Marker> markers = {};
 
-  List<dynamic> pets= [];
-  void getPetsData(){
+  void getPetsData() {
     emit(GetAllPetsDataLoadingState());
     DioHelper.getData(
       url: allPets,
-    ).then((value){
+    ).then((value) {
       pets = value.data;
       emit(GetAllPetsDataSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetAllPetsDataErrorState(error));
     });
   }
 
   Map<String, dynamic> myPet = {};
-  void getPetItem(String id){
+  void getPetItem(String id) {
     myPet = pets[int.parse(id)];
   }
 
-  List<dynamic> allFoods= [];
-  void getFoodsData(){
+  List<dynamic> allFoods = [];
+  void getFoodsData() {
     emit(GetFoodsDataLoadingState());
     DioHelper.getData(
       url: foods,
-    ).then((value){
+    ).then((value) {
       allFoods = value.data;
       emit(GetFoodsDataSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetFoodsDataErrorState(error));
-    });
-  }
-
-  double lat = 30.440067;
-  double lng = 30.965865;
-  void setMyLocation(Location l){
-    emit(SetMyLocationLoadingState());
-    l.getLocation().then((value){
-      lat = value.latitude!;
-      lng = value.longitude!;
-      emit(SetMyLocationSuccessState());
-    }).catchError((error){
-      emit(SetMyLocationErrorState(error));
     });
   }
 

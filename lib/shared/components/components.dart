@@ -157,12 +157,110 @@ Widget petItem({
   ),
 );
 
+Widget foodItem({
+  required image,
+  required name,
+  required about,
+  required reviews,
+  required price,
+}) => Container(
+  width: double.infinity,
+  height: 140,
+  decoration: BoxDecoration(
+    color: Colors.white,
+    border: Border.all(
+      color: Colors.blueGrey.withOpacity(.4),
+    ),
+    borderRadius: BorderRadius.circular(10),
+  ),
+  child: Row(
+    children: [
+      Container(
+        height: 140,
+        width: 160,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+          ),
+          image: DecorationImage(
+            image: NetworkImage(
+              image,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      Container(
+        color: Colors.blueGrey.withOpacity(.4),
+        width: 1,
+      ),
+      const SizedBox(width: 10,),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10,),
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey[700],
+                fontSize: 18,
+              ),
+              maxLines: 1,
+            ),
+            const SizedBox(height: 5,),
+            Text(
+              about,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.blueGrey,
+              ),
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const Spacer(),
+            Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow[700],
+                  size: 20,
+                ),
+                Text(
+                  '  $reviews',
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  price,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    color: Color(0xffdc4753),
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+          ],
+        ),
+      ),
+      const SizedBox(width: 10,),
+    ],
+  ),
+
+);
+
 Marker markerItem({
   required context,
   required id,
   required lat,
   required lng,
-  required color,
+  required markerIcon,
   required petImage,
   required petName,
   required ownerName,
@@ -170,14 +268,17 @@ Marker markerItem({
   required rate,
   required reviews,
   required price,
-})=> Marker(
+}) => Marker(
     markerId: MarkerId(id),
     infoWindow: InfoWindow(
       title: ownerName,
       snippet: '1,2 km away from you',
     ),
-    icon: BitmapDescriptor.defaultMarkerWithHue(color),
-    position: LatLng(lat, lng),
+    icon: markerIcon,
+    position: LatLng(
+      lat,
+      lng,
+    ),
     onTap: (){
       showDialog(
         context: context,
@@ -282,102 +383,4 @@ Marker markerItem({
         )),
       );
     }
-);
-
-Widget foodItem({
-  required image,
-  required name,
-  required about,
-  required reviews,
-  required price,
-}) => Container(
-  width: double.infinity,
-  height: 140,
-  decoration: BoxDecoration(
-    color: Colors.white,
-    border: Border.all(
-      color: Colors.blueGrey.withOpacity(.4),
-    ),
-    borderRadius: BorderRadius.circular(10),
-  ),
-  child: Row(
-    children: [
-      Container(
-        height: 140,
-        width: 160,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-          ),
-          image: DecorationImage(
-            image: NetworkImage(
-              image,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      Container(
-        color: Colors.blueGrey.withOpacity(.4),
-        width: 1,
-      ),
-      const SizedBox(width: 10,),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10,),
-            Text(
-              name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blueGrey[700],
-                fontSize: 18,
-              ),
-              maxLines: 1,
-            ),
-            const SizedBox(height: 5,),
-            Text(
-              about,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.blueGrey,
-              ),
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: Colors.yellow[700],
-                  size: 20,
-                ),
-                Text(
-                  '  $reviews',
-                  style: const TextStyle(
-                    color: Colors.blueGrey,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Color(0xffdc4753),
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10,),
-          ],
-        ),
-      ),
-      const SizedBox(width: 10,),
-    ],
-  ),
-
 );

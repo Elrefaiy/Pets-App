@@ -13,6 +13,7 @@ class Layout extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+
         return Scaffold(
           appBar: AppCubit.get(context).currentIndex != 3
               ? AppBar(
@@ -221,7 +222,7 @@ class Layout extends StatelessWidget {
                 ),
               );
             },
-            backgroundColor: Color(0xff1e4558),
+            backgroundColor: const Color(0xff1e4558),
             child: const Icon(
               Icons.location_pin,
             ),

@@ -13,17 +13,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
         List pets = AppCubit.get(context).pets;
         List newPets = [];
         List dogs = [];
         List cats = [];
         List birds = [];
-
         List<String> titles = [
           'Newest Pets',
           'Dogs',
@@ -32,25 +29,25 @@ class HomeScreen extends StatelessWidget {
         ];
 
         for (var element in pets) {
-          if(element['category'] == 'new'){
+          if (element['category'] == 'new') {
             newPets.add(element);
-          }else if(element['category'] == 'dog'){
+          } else if (element['category'] == 'dog') {
             dogs.add(element);
-          }else if(element['category'] == 'cat'){
+          } else if (element['category'] == 'cat') {
             cats.add(element);
-          }else{
+          } else {
             birds.add(element);
           }
         }
 
-        List myPetList = [] ;
-        if(AppCubit.get(context).catIndex == 0){
+        List myPetList = [];
+        if (AppCubit.get(context).catIndex == 0) {
           myPetList = newPets;
-        }else if (AppCubit.get(context).catIndex == 1){
+        } else if (AppCubit.get(context).catIndex == 1) {
           myPetList = dogs;
-        }else if (AppCubit.get(context).catIndex == 2){
+        } else if (AppCubit.get(context).catIndex == 2) {
           myPetList = cats;
-        }else{
+        } else {
           myPetList = birds;
         }
 
@@ -81,20 +78,23 @@ class HomeScreen extends StatelessWidget {
           ),
         ];
 
-
         return SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: [
                   Container(
                     width: double.infinity,
                     height: 160,
-                    margin: const EdgeInsets.symmetric(horizontal: 20,),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.blueGrey,
                       borderRadius: BorderRadius.circular(10),
@@ -163,11 +163,11 @@ class HomeScreen extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: Colors.orange[300],
                           child: IconButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context)=>const MapScreen(),
+                                  builder: (context) => const MapScreen(),
                                 ),
                               );
                             },
@@ -182,11 +182,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               // search
               Container(
                 margin: const EdgeInsets.only(left: 20),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 width: double.infinity,
                 height: 45,
                 decoration: BoxDecoration(
@@ -239,9 +242,11 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 50,
                 child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
                   itemBuilder: (context, index) => InkWell(
-                    onTap: (){
+                    onTap: () {
                       AppCubit.get(context).changeCatIndex(index);
                     },
                     child: Container(
@@ -263,27 +268,28 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
+                        children: [
                           CircleAvatar(
-                            backgroundColor:catItems[index].color,
+                            backgroundColor: catItems[index].color,
                             radius: 21,
                             child: Image(
                               image: AssetImage(catItems[index].image),
                               width: 23,
                             ),
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:[
+                            children: [
                               Text(
                                 catItems[index].name,
                                 style: TextStyle(
                                     color: Colors.blueGrey[700],
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 'total of ${catItems[index].total}',
@@ -298,7 +304,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  separatorBuilder: (context, index) => const SizedBox(width: 10,),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    width: 10,
+                  ),
                   itemCount: catItems.length,
                   scrollDirection: Axis.horizontal,
                 ),
@@ -322,7 +330,7 @@ class HomeScreen extends StatelessWidget {
               ),
               ConditionalBuilder(
                 condition: pets.isNotEmpty,
-                builder: (context)=> GridView.count(
+                builder: (context) => GridView.count(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
@@ -331,26 +339,29 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: List.generate(
-                    myPetList.length, (index) => petItem(
-                    context: context,
-                    id: myPetList[index]['id'],
-                    image: myPetList[index]['image'],
-                    name: myPetList[index]['name'],
-                    petFor: myPetList[index]['petFor'],
-                    address: myPetList[index]['address'],
-                    favourite: myPetList[index]['favourite'],
-                    price: myPetList[index]['price'],
-                  ),
+                    myPetList.length,
+                    (index) => petItem(
+                      context: context,
+                      id: myPetList[index]['id'],
+                      image: myPetList[index]['image'],
+                      name: myPetList[index]['name'],
+                      petFor: myPetList[index]['petFor'],
+                      address: myPetList[index]['address'],
+                      favourite: myPetList[index]['favourite'],
+                      price: myPetList[index]['price'],
+                    ),
                   ),
                 ),
-                fallback: (context)=> const SizedBox(
+                fallback: (context) => const SizedBox(
                   height: 200,
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
             ],
           ),
         );
