@@ -22,6 +22,8 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeRegisterIndexState());
   }
 
+  bool isAnonymous = true;
+
   void createUser({
     required String email,
     required String password,
@@ -73,7 +75,7 @@ class AppCubit extends Cubit<AppStates> {
       );
       emit(AnonymousSuccessState());
     }).catchError((error) {
-      emit(AnonymousErrorState(error));
+      emit(AnonymousErrorState(error.toString()));
     });
   }
 
@@ -83,7 +85,7 @@ class AppCubit extends Cubit<AppStates> {
     FirebaseAuth.instance.signOut().then((value) {
       emit(UserSignOutSuccessState());
     }).catchError((error) {
-      emit(UserSignOutErrorState(error));
+      emit(UserSignOutErrorState(error.toString()));
     });
   }
 
@@ -128,7 +130,7 @@ class AppCubit extends Cubit<AppStates> {
       pets = value.data;
       emit(GetAllPetsDataSuccessState());
     }).catchError((error) {
-      emit(GetAllPetsDataErrorState(error));
+      emit(GetAllPetsDataErrorState(error.toString()));
     });
   }
 
@@ -146,7 +148,21 @@ class AppCubit extends Cubit<AppStates> {
       allFoods = value.data;
       emit(GetFoodsDataSuccessState());
     }).catchError((error) {
-      emit(GetFoodsDataErrorState(error));
+      emit(GetFoodsDataErrorState(error.toString()));
+    });
+  }
+
+  Map<String,dynamic> searchResult = {};
+
+  void searchPet(String id) {
+    emit(SearchPetLoadingState());
+    DioHelper.getData(
+      url: search(id),
+    ).then((value) {
+      searchResult = value.data;
+      emit(SearchPetSuccessState());
+    }).catchError((error) {
+      emit(SearchPetErrorState(error.toString()));
     });
   }
 

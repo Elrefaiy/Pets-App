@@ -61,12 +61,12 @@ class GetFoodsDataErrorState extends AppStates {
 }
 
 
-class SetMyLocationLoadingState extends AppStates {}
-class SetMyLocationSuccessState extends AppStates {}
-class SetMyLocationErrorState extends AppStates {
+class SearchPetLoadingState extends AppStates {}
+class SearchPetSuccessState extends AppStates {}
+class SearchPetErrorState extends AppStates {
   @override
   final String error;
-  SetMyLocationErrorState(this.error);
+  SearchPetErrorState(this.error);
 }
 
 

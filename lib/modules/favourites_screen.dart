@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/shared/components/components.dart';
@@ -48,8 +49,11 @@ class FavouritesScreen extends StatelessWidget {
               ),
             ),
           ),
-          fallback: (context)=> const Center(
-            child: CircularProgressIndicator(),
+          fallback: (context)=> Center(
+            child: LottieBuilder.asset(
+              'assets/images/dog.json',
+              width: 300,
+            ),
           ),
         );
       },

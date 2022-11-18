@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/modules/map_screen.dart';
@@ -23,14 +24,9 @@ class Layout extends StatelessWidget {
                         .title[AppCubit.get(context).currentIndex],
                   ),
                   actions: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.bell,
-                        size: 22,
-                      ),
-                    ),
-                    const CircleAvatar(
+                    AppCubit.get(context).isAnonymous
+                        ? LottieBuilder.asset('assets/images/avatar.json', width: 40,)
+                        : const CircleAvatar(
                       backgroundImage: NetworkImage(
                         'https://www.bentbusinessmarketing.com/wp-content/uploads/2013/02/35844588650_3ebd4096b1_b-1024x683.jpg',
                       ),

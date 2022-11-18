@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/slider.dart';
@@ -108,53 +110,63 @@ class FoodScreen extends StatelessWidget {
        return SingleChildScrollView(
          physics: const BouncingScrollPhysics(),
          child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-             const SizedBox(height: 10,),
-             CarouselSlider.builder(
-               itemCount: sliderItems.length,
-               itemBuilder: (context, index, realIndex) => carouselItem(
-                 sliderItems[index].title,
-                 sliderItems[index].content,
-                 sliderItems[index].image,
-               ),
-               options: CarouselOptions(
-                 autoPlay: true,
-                 enlargeCenterPage: true,
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               const SizedBox(height: 10,),
+               CarouselSlider.builder(
+                 itemCount: sliderItems.length,
+                 itemBuilder: (context, index, realIndex) => carouselItem(
+                   sliderItems[index].title,
+                   sliderItems[index].content,
+                   sliderItems[index].image,
+                 ),
+                 options: CarouselOptions(
+                   autoPlay: true,
+                   enlargeCenterPage: true,
 
-               ),
-             ),
-             const Padding(
-               padding: EdgeInsets.symmetric(horizontal: 20),
-               child: Text(
-                 'Newest Food Products',
-                 style: TextStyle(
-                   fontSize: 14,
-                   color: Color(0xff1e4558),
-                   fontWeight: FontWeight.bold,
                  ),
                ),
-             ),
-             const SizedBox(height: 10,),
-             ListView.separated(
-               padding: const EdgeInsets.symmetric(horizontal: 20,),
-               shrinkWrap: true,
-               physics: const NeverScrollableScrollPhysics(),
-               itemBuilder: (context, index) => foodItem(
-                 image: allFoods[index]['image'],
-                 name: allFoods[index]['name'],
-                 about: allFoods[index]['about'],
-                 reviews: allFoods[index]['reviews'],
-                 price: allFoods[index]['price'],
+               const Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 20),
+                 child: Text(
+                   'Newest Food Products',
+                   style: TextStyle(
+                     fontSize: 14,
+                     color: Color(0xff1e4558),
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
                ),
-               separatorBuilder: (context, index) => const SizedBox(height: 10,),
-               itemCount: allFoods.length,
-             ),
-
-           ],
-         ),
+               const SizedBox(height: 10,),
+               ConditionalBuilder(
+                 condition: allFoods.isNotEmpty,
+                 builder: (context) => ListView.separated(
+                   padding: const EdgeInsets.symmetric(horizontal: 20,),
+                   shrinkWrap: true,
+                   physics: const NeverScrollableScrollPhysics(),
+                   itemBuilder: (context, index) => foodItem(
+                     image: allFoods[index]['image'],
+                     name: allFoods[index]['name'],
+                     about: allFoods[index]['about'],
+                     reviews: allFoods[index]['reviews'],
+                     price: allFoods[index]['price'],
+                   ),
+                   separatorBuilder: (context, index) => const SizedBox(height: 10,),
+                   itemCount: allFoods.length,
+                 ),
+                 fallback: (context) =>Center(
+                   child: LottieBuilder.asset(
+                     'assets/images/dog.json',
+                     width: 250,
+                   ),
+                 ),
+               ),
+             ],
+           ),
        );
       },
     );
   }
 }
+
+

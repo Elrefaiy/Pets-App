@@ -2,10 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/categories.dart';
 import 'package:pets_application/modules/map_screen.dart';
+import 'package:pets_application/modules/search_screen.dart';
 import 'package:pets_application/shared/components/components.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -186,40 +188,50 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               // search
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                width: double.infinity,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey.withOpacity(.2),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(22),
-                    bottomLeft: Radius.circular(22),
-                  ),
-                  border: Border.all(
-                    color: Colors.blueGrey.withOpacity(.4),
-                  ),
-                ),
-                child: Row(
-                  children: const [
-                    FaIcon(
-                      FontAwesomeIcons.magnifyingGlass,
-                      color: Color(0xff1e4558),
-                      size: 18,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=> const SearchScreen(),
                     ),
-                    SizedBox(
-                      width: 10,
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  width: double.infinity,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.withOpacity(.2),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(22),
+                      bottomLeft: Radius.circular(22),
                     ),
-                    Text(
-                      'Search',
-                      style: TextStyle(
+                    border: Border.all(
+                      color: Colors.blueGrey.withOpacity(.4),
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      FaIcon(
+                        FontAwesomeIcons.magnifyingGlass,
                         color: Color(0xff1e4558),
-                        fontSize: 16,
+                        size: 18,
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Search',
+                        style: TextStyle(
+                          color: Color(0xff1e4558),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -329,7 +341,7 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               ConditionalBuilder(
-                condition: pets.isNotEmpty,
+                condition: state is! GetAllPetsDataLoadingState,
                 builder: (context) => GridView.count(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   mainAxisSpacing: 10,
@@ -352,10 +364,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                fallback: (context) => const SizedBox(
-                  height: 200,
-                  child: Center(
-                    child: CircularProgressIndicator(),
+                fallback: (context) => Center(
+                  child: LottieBuilder.asset(
+                    'assets/images/dog.json',
+                    width: 220,
                   ),
                 ),
               ),

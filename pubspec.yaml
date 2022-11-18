@@ -47,6 +47,8 @@ dependencies:
   custom_marker: ^1.0.0
   shared_preferences: ^2.0.15
   carousel_slider: ^4.1.1
+  lottie: ^2.0.0
+
 
 
   # dart pub outdated --mode=null-safety        check on packages

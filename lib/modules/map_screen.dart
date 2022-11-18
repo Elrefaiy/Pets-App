@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:custom_marker/marker_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,9 +61,7 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ],
           ),
-          body: ConditionalBuilder(
-            condition: state is! SetMyLocationLoadingState,
-            builder: (context)=> GoogleMap(
+          body: GoogleMap(
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
               zoomControlsEnabled: true,
@@ -223,10 +220,6 @@ class _MapScreenState extends State<MapScreen> {
               onTap: (l) => print(l.toString()),
               markers: AppCubit.get(context).markers,
             ),
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
         );
       },
     );
