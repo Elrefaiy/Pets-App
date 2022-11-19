@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-String token = '';
+late String token;
 
 ThemeData lightTheme() => ThemeData(
   primarySwatch: Colors.blueGrey,

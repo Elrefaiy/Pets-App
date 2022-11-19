@@ -174,6 +174,7 @@ class Layout extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         AppCubit.get(context).changeCurrentIndex(3);
+                        AppCubit.get(context).getUser();
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

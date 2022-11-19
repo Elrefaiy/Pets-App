@@ -98,14 +98,14 @@ class HomeScreen extends StatelessWidget {
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.blueGrey,
+                      color: Colors.blueGrey.withOpacity(.3),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: Colors.blueGrey.withOpacity(.4),
                       ),
                       image: const DecorationImage(
                         image: NetworkImage(
-                          'https://img.freepik.com/premium-vector/map-with-destination-location-point-city-map-with-street-river-gps-map-navigator-concept_34645-1078.jpg',
+                          'https://st4.depositphotos.com/6318296/25016/v/600/depositphotos_250162276-stock-illustration-downtown-vector-map-of-berlin.jpg',
                         ),
                         fit: BoxFit.cover,
                       ),

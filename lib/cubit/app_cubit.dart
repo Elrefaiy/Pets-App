@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_status.dart';
+import 'package:pets_application/models/user.dart';
 import 'package:pets_application/modules/favourites_screen.dart';
 import 'package:pets_application/modules/home_screen.dart';
 import 'package:pets_application/modules/profile_screen.dart';
 import 'package:pets_application/modules/food_screen.dart';
+import 'package:pets_application/shared/constants/conistants.dart';
 import 'package:pets_application/shared/network/end_points.dart';
 import 'package:pets_application/shared/network/local/cache_helper.dart';
 import 'package:pets_application/shared/network/remote/dio_helper.dart';
@@ -25,6 +28,7 @@ class AppCubit extends Cubit<AppStates> {
   bool isAnonymous = true;
 
   void createUser({
+    required String userName,
     required String email,
     required String password,
   }) {
@@ -35,6 +39,12 @@ class AppCubit extends Cubit<AppStates> {
       password: password,
     )
         .then((value) {
+      addUserToFireStore(
+        uId: value.user!.uid,
+        userName: userName,
+        email: value.user!.email,
+        isGuest: value.user!.isAnonymous,
+      );
       CacheHelper.putData(
         key: 'token',
         value: value.user!.uid.toString(),
@@ -42,6 +52,34 @@ class AppCubit extends Cubit<AppStates> {
       emit(UserSignupSuccessState());
     }).catchError((error) {
       emit(UserSignupErrorState(error.toString()));
+    });
+  }
+
+  void addUserToFireStore({
+    required uId,
+    required userName,
+    required email,
+    required isGuest,
+  }) {
+    UserModel userModel = UserModel(
+      name: userName,
+      nickname: '---',
+      email: email,
+      phone: '-',
+      address: '-',
+      about: '...',
+      image: '',
+      isGuest: isGuest,
+    );
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .set(userModel.toMap())
+        .then((value) {
+      emit(AddUserSuccessState());
+    }).catchError((error) {
+      emit(AddUserErrorState(error.toString()));
     });
   }
 
@@ -69,6 +107,12 @@ class AppCubit extends Cubit<AppStates> {
   void anonymous() {
     emit(AnonymousLoadingState());
     FirebaseAuth.instance.signInAnonymously().then((value) {
+      addUserToFireStore(
+        uId: value.user!.uid,
+        userName: 'I am Guest',
+        email: 'I am Guest',
+        isGuest: value.user!.isAnonymous,
+      );
       CacheHelper.putData(
         key: 'token',
         value: value.user!.uid.toString(),
@@ -87,6 +131,26 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       emit(UserSignOutErrorState(error.toString()));
     });
+  }
+
+  late UserModel userModel;
+  void getUser() {
+    if (token != '') {
+      emit(GetUserLoadingState());
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(token)
+          .get()
+          .then((value) {
+        userModel = UserModel.fromJson(value.data());
+        emit(GetUserSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+        emit(GetUserErrorState(error.toString()));
+      });
+    }else{
+      print('Empty uId $token');
+    }
   }
 
   bool isHidden = true;
@@ -152,7 +216,7 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Map<String,dynamic> searchResult = {};
+  Map<String, dynamic> searchResult = {};
 
   void searchPet(String id) {
     emit(SearchPetLoadingState());
@@ -165,5 +229,4 @@ class AppCubit extends Cubit<AppStates> {
       emit(SearchPetErrorState(error.toString()));
     });
   }
-
 }

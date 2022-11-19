@@ -36,6 +36,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   firebase_core: ^1.24.0
   firebase_auth: ^3.11.2
+  cloud_firestore: ^2.5.1
+  firebase_storage: ^10.0.3
   smooth_page_indicator: ^1.0.0+2
   conditional_builder_null_safety: ^0.0.6
   fluttertoast: ^8.0.9
@@ -49,11 +51,7 @@ dependencies:
   carousel_slider: ^4.1.1
   lottie: ^2.0.0
 
-
-
   # dart pub outdated --mode=null-safety        check on packages
-
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

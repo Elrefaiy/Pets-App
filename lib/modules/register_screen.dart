@@ -21,7 +21,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if( state is UserLoginSuccessState ||
-            state is UserLoginSuccessState ||
+            state is AddUserSuccessState ||
             state is AnonymousSuccessState){
           Fluttertoast.showToast(
             msg: 'You have successfully logged in.',
@@ -355,6 +355,7 @@ class RegisterScreen extends StatelessWidget {
                                 onPressed: () {
                                   if (AppCubit.get(context).registerIndex == 1){
                                     AppCubit.get(context).createUser(
+                                      userName: usernameController.text,
                                       email: signupEmailController.text,
                                       password: signupPasswordController.text,
                                     );

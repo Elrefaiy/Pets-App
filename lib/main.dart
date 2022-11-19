@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
       create: ((context) => AppCubit()
         ..getPetsData()
         ..getFoodsData()
+        ..getUser()
       ),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -69,4 +69,19 @@ class SearchPetErrorState extends AppStates {
   SearchPetErrorState(this.error);
 }
 
+class AddUserSuccessState extends AppStates {}
+class AddUserErrorState extends AppStates {
+  @override
+  final String error;
+  AddUserErrorState(this.error);
+}
+
+class GetUserLoadingState extends AppStates {}
+class GetUserSuccessState extends AppStates {}
+class GetUserErrorState extends AppStates {
+  @override
+  final String error;
+  GetUserErrorState(this.error);
+}
+
 
