@@ -10,7 +10,7 @@ import 'package:pets_application/shared/network/remote/dio_helper.dart';
 import 'cubit/bloc_observer.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -19,11 +19,11 @@ void main() async{
   await CacheHelper.init();
   DioHelper.init();
 
-  Widget widget ;
+  Widget widget;
   token = CacheHelper.getData(key: 'token') ?? '';
-  if(token == ''){
+  if (token == '') {
     widget = const OnBoardingScreen();
-  }else{
+  } else {
     widget = const Layout();
   }
 
@@ -31,7 +31,6 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-
   final Widget widget;
   const MyApp(this.widget, {super.key});
 
@@ -41,8 +40,7 @@ class MyApp extends StatelessWidget {
       create: ((context) => AppCubit()
         ..getPetsData()
         ..getFoodsData()
-        ..getUser()
-      ),
+        ..getUser()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme(),

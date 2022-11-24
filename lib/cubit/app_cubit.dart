@@ -98,6 +98,7 @@ class AppCubit extends Cubit<AppStates> {
         key: 'token',
         value: value.user!.uid.toString(),
       );
+      getUser();
       emit(UserLoginSuccessState());
     }).catchError((error) {
       emit(UserLoginErrorState(error.toString()));
@@ -117,6 +118,7 @@ class AppCubit extends Cubit<AppStates> {
         key: 'token',
         value: value.user!.uid.toString(),
       );
+      getUser();
       emit(AnonymousSuccessState());
     }).catchError((error) {
       emit(AnonymousErrorState(error.toString()));
@@ -135,6 +137,7 @@ class AppCubit extends Cubit<AppStates> {
 
   late UserModel userModel;
   void getUser() {
+    token = CacheHelper.getData(key: 'token') ?? '';
     if (token != '') {
       emit(GetUserLoadingState());
       FirebaseFirestore.instance
@@ -148,8 +151,8 @@ class AppCubit extends Cubit<AppStates> {
         print(error.toString());
         emit(GetUserErrorState(error.toString()));
       });
-    }else{
-      print('Empty uId $token');
+    } else {
+      print('###### Empty uId ######');
     }
   }
 
