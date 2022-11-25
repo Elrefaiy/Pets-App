@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/user.dart';
+import 'package:pets_application/modules/edit_profile_screen.dart';
 import 'package:pets_application/modules/register_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -64,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                                         backgroundImage: NetworkImage(
                                           user.image,
                                         ),
-                                        radius: 18,
+                                        radius: 65,
                                       ),
                                 const SizedBox(
                                   height: 20,
@@ -186,7 +187,13 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             child: TextButton(
                               onPressed: () {
-                                // to be implemented
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const EditProfileScreen(),
+                                  ),
+                                );
                               },
                               child: const Text(
                                 'Edit Profile',

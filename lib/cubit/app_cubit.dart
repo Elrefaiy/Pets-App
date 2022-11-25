@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,6 +50,7 @@ class AppCubit extends Cubit<AppStates> {
         key: 'token',
         value: value.user!.uid.toString(),
       );
+      getUser();
       emit(UserSignupSuccessState());
     }).catchError((error) {
       emit(UserSignupErrorState(error.toString()));
@@ -65,9 +67,9 @@ class AppCubit extends Cubit<AppStates> {
       name: userName,
       nickname: '---',
       email: email,
-      phone: '-',
-      address: '-',
-      about: '...',
+      phone: '---',
+      address: '---',
+      about: '---',
       image: '',
       isGuest: isGuest,
     );
@@ -111,7 +113,7 @@ class AppCubit extends Cubit<AppStates> {
       addUserToFireStore(
         uId: value.user!.uid,
         userName: 'I am Guest',
-        email: 'I am Guest',
+        email: '---',
         isGuest: value.user!.isAnonymous,
       );
       CacheHelper.putData(
@@ -148,11 +150,8 @@ class AppCubit extends Cubit<AppStates> {
         userModel = UserModel.fromJson(value.data());
         emit(GetUserSuccessState());
       }).catchError((error) {
-        print(error.toString());
         emit(GetUserErrorState(error.toString()));
       });
-    } else {
-      print('###### Empty uId ######');
     }
   }
 
@@ -232,4 +231,26 @@ class AppCubit extends Cubit<AppStates> {
       emit(SearchPetErrorState(error.toString()));
     });
   }
+
+  // void uploadProfilePic({
+  //   required String name,
+  //   required String phone,
+  //   required String bio,
+  // }) {
+  //   firebase_storage.FirebaseStorage.instance
+  //       .ref()
+  //       .child('users/${Uri.file(profileImage.path).pathSegments.last}')
+  //       .putFile(profileImage)
+  //       .then((value) {
+  //     value.ref.getDownloadURL().then((value) {
+  //       updateUser(name: name, phone: phone, bio: bio, image: value);
+  //       emit(UploadProfilePicSuccessState());
+  //     }).catchError((error) {
+  //       emit(UploadProfilePicErrorState());
+  //     });
+  //   }).catchError((error) {
+  //     emit(UploadProfilePicErrorState());
+  //   });
+  // }
+
 }
