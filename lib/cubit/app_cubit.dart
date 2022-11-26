@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/models/user.dart';
 import 'package:pets_application/modules/favourites_screen.dart';
@@ -232,6 +233,38 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  void updateUser({
+    required name,
+    required nuickname,
+    required about,
+    required phone,
+    required address,
+  }) {
+    emit(UpdateUserLoadingState());
+    userModel = UserModel(
+      name: name,
+      nickname: nuickname,
+      about: about,
+      phone: phone,
+      address: address,
+      email: userModel.email,
+      image: userModel.image,
+      isGuest: false,
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(token)
+        .update(userModel.toMap())
+        .then((value) {
+      getUser();
+      emit(UpdateUserSuccessState());
+    }).catchError((error) {
+      emit(UpdateUserErrorState(error.toString()));
+    });
+  }
+
+  // File profileImage;
+  // ImagePicker picker = ImagePicker();
   // void uploadProfilePic({
   //   required String name,
   //   required String phone,

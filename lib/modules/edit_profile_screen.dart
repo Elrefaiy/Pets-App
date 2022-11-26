@@ -179,7 +179,14 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // to do
+                      AppCubit.get(context).updateUser(
+                        name: nameController.text,
+                        nuickname: nicknameController.text,
+                        about: aboutController.text,
+                        phone: phoneController.text,
+                        address: addressController.text,
+                      );
+                      Navigator.pop(context);
                     },
                     child: const Text(
                       'Save Changes',

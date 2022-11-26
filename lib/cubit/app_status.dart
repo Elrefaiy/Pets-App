@@ -99,3 +99,13 @@ class GetUserErrorState extends AppStates {
   final String error;
   GetUserErrorState(this.error);
 }
+
+class UpdateUserLoadingState extends AppStates {}
+
+class UpdateUserSuccessState extends AppStates {}
+
+class UpdateUserErrorState extends AppStates {
+  @override
+  final String error;
+  UpdateUserErrorState(this.error);
+}
