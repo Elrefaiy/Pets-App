@@ -40,16 +40,44 @@ class EditProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                CircleAvatar(
-                  radius: 65,
-                  child: Stack(
-                    children: [
-                      Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.white.withOpacity(.8),
-                        size: 60,
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    AppCubit.get(context).getProfilePic();
+                  },
+                  child: CircleAvatar(
+                    radius: 65,
+                    child: AppCubit.get(context).profileImage.path == ''
+                        ? const ClipOval(
+                            child: Image(
+                              image: NetworkImage(
+                                'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                              ),
+                            ),
+                          )
+                        : ClipOval(
+                            child: Image(
+                              image: FileImage(
+                                AppCubit.get(context).profileImage,
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    AppCubit.get(context).uploadProfilePic(
+                      name: nameController.text,
+                      nickname: nicknameController.text,
+                      about: aboutController.text,
+                      phone: phoneController.text,
+                      address: addressController.text,
+                    );
+                  },
+                  child: const Text(
+                    'upload profile pic',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -181,7 +209,7 @@ class EditProfileScreen extends StatelessWidget {
                     onPressed: () {
                       AppCubit.get(context).updateUser(
                         name: nameController.text,
-                        nuickname: nicknameController.text,
+                        nickname: nicknameController.text,
                         about: aboutController.text,
                         phone: phoneController.text,
                         address: addressController.text,

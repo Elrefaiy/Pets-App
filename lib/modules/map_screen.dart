@@ -22,12 +22,12 @@ class _MapScreenState extends State<MapScreen> {
     ),
     zoom: 16.8,
   );
+
   late GoogleMapController googleMapController;
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -38,13 +38,12 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     List pets = AppCubit.get(context).pets;
     Set<Marker> markers = AppCubit.get(context).markers;
 
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state){},
-      builder: (context, state){
+      listener: (context, state) {},
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -62,22 +61,22 @@ class _MapScreenState extends State<MapScreen> {
             ],
           ),
           body: GoogleMap(
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              zoomControlsEnabled: true,
-              initialCameraPosition: initialCameraPosition,
-              mapType: MapType.normal,
-              onMapCreated: (controller) async{
-                googleMapController = controller;
-                for (var element in pets) {
-                  markers.add(
-                    Marker(
-                      markerId: MarkerId(element['id']),
-                      infoWindow: InfoWindow(
-                        title: element['ownerName'],
-                        snippet: '1,2 km away from you',
-                      ),
-                      icon: await MarkerIcon.downloadResizePictureCircle(
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: true,
+            initialCameraPosition: initialCameraPosition,
+            mapType: MapType.normal,
+            onMapCreated: (controller) async {
+              googleMapController = controller;
+              for (var element in pets) {
+                markers.add(
+                  Marker(
+                    markerId: MarkerId(element['id']),
+                    infoWindow: InfoWindow(
+                      title: element['ownerName'],
+                      snippet: '1,2 km away from you',
+                    ),
+                    icon: await MarkerIcon.downloadResizePictureCircle(
                       element['ownerImage'],
                       size: 150,
                       addBorder: true,
@@ -214,12 +213,12 @@ class _MapScreenState extends State<MapScreen> {
                     },
                   ),
                 );
-                  setState(() {});
+                setState(() {});
               }
-                },
-              onTap: (l) => print(l.toString()),
-              markers: AppCubit.get(context).markers,
-            ),
+            },
+            onTap: (l) => print(l.toString()),
+            markers: AppCubit.get(context).markers,
+          ),
         );
       },
     );

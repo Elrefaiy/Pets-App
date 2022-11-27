@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -26,8 +28,6 @@ class AppCubit extends Cubit<AppStates> {
     registerIndex = index;
     emit(ChangeRegisterIndexState());
   }
-
-  bool isAnonymous = true;
 
   void createUser({
     required String userName,
@@ -235,20 +235,21 @@ class AppCubit extends Cubit<AppStates> {
 
   void updateUser({
     required name,
-    required nuickname,
+    required nickname,
     required about,
     required phone,
     required address,
+    image,
   }) {
     emit(UpdateUserLoadingState());
     userModel = UserModel(
       name: name,
-      nickname: nuickname,
+      nickname: nickname,
       about: about,
       phone: phone,
       address: address,
       email: userModel.email,
-      image: userModel.image,
+      image: image ?? userModel.image,
       isGuest: false,
     );
     FirebaseFirestore.instance
@@ -263,27 +264,48 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  // File profileImage;
-  // ImagePicker picker = ImagePicker();
-  // void uploadProfilePic({
-  //   required String name,
-  //   required String phone,
-  //   required String bio,
-  // }) {
-  //   firebase_storage.FirebaseStorage.instance
-  //       .ref()
-  //       .child('users/${Uri.file(profileImage.path).pathSegments.last}')
-  //       .putFile(profileImage)
-  //       .then((value) {
-  //     value.ref.getDownloadURL().then((value) {
-  //       updateUser(name: name, phone: phone, bio: bio, image: value);
-  //       emit(UploadProfilePicSuccessState());
-  //     }).catchError((error) {
-  //       emit(UploadProfilePicErrorState());
-  //     });
-  //   }).catchError((error) {
-  //     emit(UploadProfilePicErrorState());
-  //   });
-  // }
+  File profileImage = File('');
+  ImagePicker picker = ImagePicker();
 
+  Future<void> getProfilePic() async {
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      profileImage = File(pickedFile.path);
+      emit(GetProfilePicSuccessState());
+    } else {
+      emit(GetProfilePicErrorState());
+    }
+  }
+
+  void uploadProfilePic({
+    required String name,
+    required String nickname,
+    required String about,
+    required String phone,
+    required String address,
+  }) {
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('users/${Uri.file(profileImage.path).pathSegments.last}')
+        .putFile(profileImage)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        updateUser(
+          name: name,
+          nickname: nickname,
+          about: about,
+          phone: phone,
+          address: address,
+          image: value,
+        );
+        emit(UploadProfilePicSuccessState());
+      }).catchError((error) {
+        emit(UploadProfilePicErrorState(error.toString()));
+      });
+    }).catchError((error) {
+      emit(UploadProfilePicErrorState(error.toString()));
+    });
+  }
 }

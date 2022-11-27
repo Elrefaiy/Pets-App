@@ -109,3 +109,15 @@ class UpdateUserErrorState extends AppStates {
   final String error;
   UpdateUserErrorState(this.error);
 }
+
+class GetProfilePicSuccessState extends AppStates {}
+
+class GetProfilePicErrorState extends AppStates {}
+
+class UploadProfilePicSuccessState extends AppStates {}
+
+class UploadProfilePicErrorState extends AppStates {
+  @override
+  final String error;
+  UploadProfilePicErrorState(this.error);
+}

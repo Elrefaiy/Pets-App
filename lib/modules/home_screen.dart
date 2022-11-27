@@ -133,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                ' Find Nearest Friendly Pet',
+                                " New Feature: Pet's Location Added",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.blueGrey[700],
@@ -149,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                                     color: Colors.blueGrey,
                                   ),
                                   Text(
-                                    'Menufia, Cairo, Egypt',
+                                    'Find Nearest Friendly Pet',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.blueGrey,
@@ -189,11 +189,11 @@ class HomeScreen extends StatelessWidget {
               ),
               // search
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context)=> const SearchScreen(),
+                      builder: (context) => const SearchScreen(),
                     ),
                   );
                 },

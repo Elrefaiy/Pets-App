@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
 import 'package:pets_application/modules/map_screen.dart';
@@ -14,7 +13,6 @@ class Layout extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
         return Scaffold(
           appBar: AppCubit.get(context).currentIndex != 3
               ? AppBar(
@@ -23,19 +21,6 @@ class Layout extends StatelessWidget {
                     AppCubit.get(context)
                         .title[AppCubit.get(context).currentIndex],
                   ),
-                  actions: [
-                    AppCubit.get(context).isAnonymous
-                        ? LottieBuilder.asset('assets/images/avatar.json', width: 40,)
-                        : const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'https://www.bentbusinessmarketing.com/wp-content/uploads/2013/02/35844588650_3ebd4096b1_b-1024x683.jpg',
-                      ),
-                      radius: 18,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ],
                 )
               : null,
           body: SafeArea(
@@ -115,14 +100,14 @@ class Layout extends StatelessWidget {
                             'Saved',
                             style: AppCubit.get(context).currentIndex == 1
                                 ? const TextStyle(
-                              color: Color(0xffdc4753),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            )
+                                    color: Color(0xffdc4753),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
                                 : TextStyle(
-                              color: Colors.blueGrey[200],
-                              fontSize: 12,
-                            ),
+                                    color: Colors.blueGrey[200],
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -154,14 +139,14 @@ class Layout extends StatelessWidget {
                             'Foods',
                             style: AppCubit.get(context).currentIndex == 2
                                 ? const TextStyle(
-                              color: Color(0xffdc4753),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            )
+                                    color: Color(0xffdc4753),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
                                 : TextStyle(
-                              color: Colors.blueGrey[200],
-                              fontSize: 12,
-                            ),
+                                    color: Colors.blueGrey[200],
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -193,14 +178,14 @@ class Layout extends StatelessWidget {
                             'Profile',
                             style: AppCubit.get(context).currentIndex == 3
                                 ? const TextStyle(
-                              color: Color(0xffdc4753),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                            )
+                                    color: Color(0xffdc4753),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                  )
                                 : TextStyle(
-                              color: Colors.blueGrey[200],
-                              fontSize: 12,
-                            ),
+                                    color: Colors.blueGrey[200],
+                                    fontSize: 12,
+                                  ),
                           ),
                         ],
                       ),
@@ -224,7 +209,8 @@ class Layout extends StatelessWidget {
               Icons.location_pin,
             ),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         );
       },
     );
