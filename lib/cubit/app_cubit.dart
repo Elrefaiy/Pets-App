@@ -286,6 +286,7 @@ class AppCubit extends Cubit<AppStates> {
     required String phone,
     required String address,
   }) {
+    emit(UploadProfilePicLoadingState());
     firebase_storage.FirebaseStorage.instance
         .ref()
         .child('users/${Uri.file(profileImage.path).pathSegments.last}')

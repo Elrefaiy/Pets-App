@@ -114,6 +114,8 @@ class GetProfilePicSuccessState extends AppStates {}
 
 class GetProfilePicErrorState extends AppStates {}
 
+class UploadProfilePicLoadingState extends AppStates {}
+
 class UploadProfilePicSuccessState extends AppStates {}
 
 class UploadProfilePicErrorState extends AppStates {

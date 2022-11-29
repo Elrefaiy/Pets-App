@@ -17,10 +17,10 @@ class _MapScreenState extends State<MapScreen> {
   Location location = Location();
   static const initialCameraPosition = CameraPosition(
     target: LatLng(
-      30.439782815266412,
-      30.966845713555813,
+      30.053462065549184,
+      31.261562146246433,
     ),
-    zoom: 16.8,
+    zoom: 17,
   );
 
   late GoogleMapController googleMapController;
@@ -216,7 +216,6 @@ class _MapScreenState extends State<MapScreen> {
                 setState(() {});
               }
             },
-            onTap: (l) => print(l.toString()),
             markers: AppCubit.get(context).markers,
           ),
         );

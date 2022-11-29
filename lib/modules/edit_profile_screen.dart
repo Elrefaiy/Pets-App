@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
@@ -40,45 +41,65 @@ class EditProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    AppCubit.get(context).getProfilePic();
-                  },
-                  child: CircleAvatar(
-                    radius: 65,
-                    child: AppCubit.get(context).profileImage.path == ''
-                        ? const ClipOval(
-                            child: Image(
-                              image: NetworkImage(
-                                'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        AppCubit.get(context).getProfilePic();
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        decoration: const BoxDecoration(
+                          color: Colors.blueGrey,
+                          shape: BoxShape.circle,
+                        ),
+                        child: AppCubit.get(context).profileImage.path == ''
+                            ? const ClipOval(
+                              child: Image(
+                                image: NetworkImage(
+                                  'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                                ),
+                          fit: BoxFit.cover,
+                        ),
+                            )
+                            : ClipOval(
+                              child: Image(
+                                image: FileImage(
+                                  AppCubit.get(context).profileImage,
+                                ),
+                          fit: BoxFit.cover,
                               ),
                             ),
-                          )
-                        : ClipOval(
-                            child: Image(
-                              image: FileImage(
-                                AppCubit.get(context).profileImage,
-                              ),
+                      ),
+                    ),
+                    if(state is GetProfilePicSuccessState || state is UploadProfilePicLoadingState)
+                      CircleAvatar(
+                        child: ConditionalBuilder(
+                          condition: state is! UploadProfilePicLoadingState,
+                          builder: (context)=> IconButton(
+                            icon: const Icon(Icons.done),
+                            onPressed: () {
+                              AppCubit.get(context).uploadProfilePic(
+                                name: nameController.text,
+                                nickname: nicknameController.text,
+                                about: aboutController.text,
+                                phone: phoneController.text,
+                                address: addressController.text,
+                              );
+                            },
+                          ),
+                          fallback: (context)=> const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
                             ),
                           ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    AppCubit.get(context).uploadProfilePic(
-                      name: nameController.text,
-                      nickname: nicknameController.text,
-                      about: aboutController.text,
-                      phone: phoneController.text,
-                      address: addressController.text,
-                    );
-                  },
-                  child: const Text(
-                    'upload profile pic',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                        ),
+                      ),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,

@@ -20,15 +20,15 @@ class OnBoardingScreen extends StatelessWidget {
       ),
       OnBoarding(
         image: 'https://img.freepik.com/free-photo/red-white-cat-i-white-studio_155003-13189.jpg',
-        title: 'Pet Care In Your Neighbourhood',
-        body: 'Connect with 5-star pet caregivers near you who are boarding, walking, house sitting or day care.',
+        title: 'Find The Nearest Pet Form Your Location',
+        body: 'Using our map you can chose your location, to find the nearest friendly pet for you fast and easy.',
         color: 0xffffffff,
 
       ),
       OnBoarding(
         image: 'https://img.freepik.com/free-photo/closeup-shot-sulphur-crested-cockatoo-perched-branch-yellow-background_181624-36192.jpg',
-        title: 'Pet Care In Your Neighbourhood',
-        body: 'Connect with 5-star pet caregivers near you who are boarding, walking, house sitting or day care.',
+        title: 'Find And Make Your New Friends',
+        body: 'Pets have so much to give, they will never stop giving it to you once you let them into your heart.',
         color: 0xfff4b33f,
 
       ),
