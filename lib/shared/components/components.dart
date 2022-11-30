@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
+import 'package:pets_application/modules/caregiver_screen.dart';
 import 'package:pets_application/modules/pet_screen.dart';
 
 Widget petItem({
@@ -383,4 +384,75 @@ Marker markerItem({
         )),
       );
     }
+);
+
+Widget caregiver({
+  required context,
+  required image,
+  required name,
+  required address,
+  required int id,
+}) => Row(
+  children: [
+    CircleAvatar(
+      backgroundImage: NetworkImage(
+        image,
+      ),
+    ),
+    const SizedBox(width: 10,),
+    Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              color: Colors.blueGrey[700],
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 5,),
+          Text(
+            address,
+            style: const TextStyle(
+              color: Colors.blueGrey,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    ),
+    const SizedBox(width: 10,),
+    Container(
+      height: 36,
+      decoration: BoxDecoration(
+        color: const Color(0xffdc4753),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextButton(
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CaregiverScreen(
+                AppCubit.get(context).petsCaregivers[id],
+              ),
+            ),
+          );
+        },
+        child: const Text(
+          'Contact Me',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+  ],
 );

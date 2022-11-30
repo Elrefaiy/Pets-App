@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
+import 'package:pets_application/shared/components/components.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   Location location = Location();
   static const initialCameraPosition = CameraPosition(
     target: LatLng(
@@ -45,6 +48,7 @@ class _MapScreenState extends State<MapScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          key: scaffoldKey,
           appBar: AppBar(
             centerTitle: true,
             title: const Text(
@@ -52,7 +56,39 @@ class _MapScreenState extends State<MapScreen> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  scaffoldKey.currentState?.showBottomSheet(
+                    (context) => Container(
+                      height: 250,
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10,),
+                          Expanded(
+                            child: ListView.separated(
+                              padding: const EdgeInsets.fromLTRB(20, 15, 20, 0,),
+                              itemBuilder: (context, index)=> caregiver(
+                                context: context,
+                                image: AppCubit.get(context).petsCaregivers[index]['image'],
+                                name: AppCubit.get(context).petsCaregivers[index]['name'],
+                                address: AppCubit.get(context).petsCaregivers[index]['address'],
+                                id: index,
+                              ),
+                              separatorBuilder: (context, index)=> Container(
+                                height: 1,
+                                color: Colors.blueGrey.withOpacity(.4),
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                              ),
+                              itemCount: AppCubit.get(context).petsCaregivers.length,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.list_alt),
               ),
               const SizedBox(

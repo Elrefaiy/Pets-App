@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets_application/cubit/app_cubit.dart';
 import 'package:pets_application/cubit/app_status.dart';
+import 'package:pets_application/modules/caregiver_screen.dart';
 
 class PetScreen extends StatelessWidget {
 
@@ -349,7 +350,16 @@ class PetScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CaregiverScreen(
+                              AppCubit.get(context).petsCaregivers[myPet['ownerId']],
+                            ),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Contact Me',
                         style: TextStyle(

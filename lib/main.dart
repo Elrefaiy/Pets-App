@@ -40,7 +40,9 @@ class MyApp extends StatelessWidget {
       create: ((context) => AppCubit()
         ..getPetsData()
         ..getFoodsData()
-        ..getUser()),
+        ..getUser()
+        ..getCaregivers()
+      ),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme(),

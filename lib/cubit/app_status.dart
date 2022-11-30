@@ -123,3 +123,11 @@ class UploadProfilePicErrorState extends AppStates {
   final String error;
   UploadProfilePicErrorState(this.error);
 }
+
+class GetCaregiversSuccessState extends AppStates {}
+
+class GetCaregiversErrorState extends AppStates {
+  @override
+  final String error;
+  GetCaregiversErrorState(this.error);
+}

@@ -309,4 +309,18 @@ class AppCubit extends Cubit<AppStates> {
       emit(UploadProfilePicErrorState(error.toString()));
     });
   }
+
+  List petsCaregivers = [];
+  void getCaregivers(){
+    DioHelper.getData(
+      url: caregivers,
+    ).then((value){
+      petsCaregivers = value.data;
+      emit(GetCaregiversSuccessState());
+    }).catchError((error){
+      emit(GetCaregiversErrorState(error.toString()));
+    });
+  }
+
+
 }
