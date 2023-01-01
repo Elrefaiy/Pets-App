@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
         ..getPetsData()
         ..getFoodsData()
         ..getUser()
-        ..getCaregivers()
-      ),
+        ..getCaregivers()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme(),
